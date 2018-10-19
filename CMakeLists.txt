@@ -11,6 +11,8 @@ if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компиля
   set(CMAKE_BUILD_TYPE Release) #Если нет то устанавливаем Release
 endif()
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/vectorlib)
+
 add_subdirectory(vector)
 add_subdirectory(vectorlib)
 #file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
