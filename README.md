@@ -1,6 +1,6 @@
 # Методы программирования 2: Верхнетреугольные матрицы на шаблонах
 
-[![Build Status](https://travis-ci.org/UNN-VMK-Software/mp2-lab1-set.svg)][travis]
+[![Build Status](https://travis-ci.org/381706-2-zhbanova-nadezhda/381706-2_zhbanova_labs.svg?branch=lab-2-matrix)](https://travis-ci.org/381706-2-zhbanova-nadezhda/381706-2_zhbanova_labs)
 
 <!-- TODO
   -
