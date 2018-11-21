@@ -1,4 +1,4 @@
-#include "utmatrix.h"
+#include "utmatrix.cpp"
 
 #include <gtest.h>
 
