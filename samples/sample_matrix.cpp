@@ -6,8 +6,8 @@
 // ������������ ����������������� �������
 
 #include <iostream>
-#include "utmatrix.cpp"
-#include "utvector.cpp"
+#include "utmatrix.h"
+
 //---------------------------------------------------------------------------
 
 int main()
