@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+#include "utvector.h"
+
 using namespace std;
 
 const int MAX_MATRIX_SIZE = 10000;
