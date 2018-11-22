@@ -1,4 +1,5 @@
 #include "utmatrix.cpp"
+#include "utvector.cpp"
 
 #include <gtest.h>
 
