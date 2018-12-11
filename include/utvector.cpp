@@ -12,12 +12,11 @@ TVector<VectorType>::TVector(int s, int si):Size(s),StartIndex(si)
 template <class VectorType>
 TVector<VectorType>::TVector(const TVector<VectorType> &v)
 {
-  Size=v.Size;
   StartIndex=v.StartIndex;
-  if (Size != v.Size) {
-    delete [] pVector;
-    pVector = new VectorType[Size];
-  }
+  Size=v.Size;
+  delete [] pVector;
+  pVector = new VectorType[Size];
+
   for (int i=0;i<Size;i++) pVector[i]=v.pVector[i];
 }
 
