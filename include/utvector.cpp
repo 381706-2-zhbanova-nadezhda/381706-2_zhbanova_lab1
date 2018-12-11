@@ -3,7 +3,7 @@
 template <class VectorType>
 TVector<VectorType>::TVector(int s, int si):Size(s),StartIndex(si)
 {
-  if((s>MAX_VECTOR_SIZE)||(s<0)) throw 1;
+  if((s>MAX_VECTOR_SIZE)||(s<=0)) throw 1;
   else if((si>MAX_VECTOR_SIZE)||(si<0)) throw 1;
   else
   pVector = new VectorType [s];
@@ -14,8 +14,11 @@ TVector<VectorType>::TVector(const TVector<VectorType> &v)
 {
   Size=v.Size;
   StartIndex=v.StartIndex;
-  pVector = new VectorType[Size];
-  for (int i=0;i<Size;i++){pVector[i]=v.pVector[i];}
+  if (Size != v.Size) {
+    delete [] pVector;
+    pVector = new VectorType[Size];
+  }
+  for (int i=0;i<Size;i++) pVector[i]=v.pVector[i];
 }
 
 template <class VectorType>
@@ -36,33 +39,23 @@ VectorType& TVector<VectorType>::operator[](int pos)
 template <class VectorType>
 bool TVector<VectorType>::operator==(const TVector &v) const
 {
-  if(Size!=v.Size)return false;
-  else if(StartIndex!=v.StartIndex) return false;
-  else {
-    for (int i=0;i<Size;i++){
-      if (pVector[i]!=v.pVector[i]){
-        return false;
-      }
+  if(Size!=v.Size || StartIndex!=v.StartIndex) {
+    return false;
+  }
+
+  for (int i=0;i<Size;i++) {
+    if (pVector[i]!=v.pVector[i]) {
+      return false;
     }
+  }
 
   return true;
-  }
 }
 
 template <class VectorType>
 bool TVector<VectorType>::operator!=(const TVector &v) const
 {
-  if(Size!=v.Size)return true;
-  else if(StartIndex!=v.StartIndex) return true;
-  else {
-    for (int i=0;i<Size;i++){
-      if (pVector[i]!=v.pVector[i]){
-        return true;
-      }
-    }
-
-  return false;
-  }
+  return !TVector<VectorType>::operator==(v);
 }
 
 template <class VectorType>
@@ -83,33 +76,25 @@ TVector<VectorType>& TVector<VectorType>::operator=(const TVector &v)
 template <class VectorType>
 TVector<VectorType> TVector<VectorType>::operator+(const VectorType &val)
 {
-  TVector <VectorType> buf(Size,StartIndex);
-
-  for(int i=0;i<Size;i++){
-    buf.pVector[i]=pVector[i]+val;}
-
-  return buf;
+  for(int i = 0; i < Size; i++)
+    pVector[i] += val;
+  return *this;
 }
 
 template <class VectorType>
 TVector<VectorType> TVector<VectorType>::operator-(const VectorType &val)
 {
-  TVector <VectorType> buf(Size,StartIndex);
-
-  for(int i=0;i<Size;i++){
-    buf.pVector[i]=pVector[i]-val;}
-
-  return buf;
+  for(int i = 0; i < Size; i++)
+    pVector[i] -= val;
+  return *this;
 }
 
 template <class VectorType>
 TVector<VectorType> TVector<VectorType>::operator*(const VectorType &val)
 {
-  TVector <VectorType> buf(Size,StartIndex);
-
-  for(int i=0;i<Size;i++) buf.pVector[i]=pVector[i]*val;
-
-  return buf;
+  for(int i = 0; i < Size; i++)
+    pVector[i] *= val;
+  return *this;
 }
 
 template <class VectorType>
@@ -117,15 +102,12 @@ TVector<VectorType> TVector<VectorType>::operator+(const TVector<VectorType> &v)
 {
   if (Size != v.Size || StartIndex != v.StartIndex) {
     throw 4;
+  } else {
+    for(int i = 0; i < Size; i++)
+        pVector[i] += v.pVector[i];
   }
 
-  TVector<VectorType> temp(Size, StartIndex);
-
-  for (int i = 0; i < Size; i++) {
-    temp.pVector[i] = pVector[i] + v.pVector[i];
-  }
-
-  return temp;
+  return *this;
 }
 
 template <class VectorType>
@@ -133,15 +115,12 @@ TVector<VectorType> TVector<VectorType>::operator-(const TVector<VectorType> &v)
 {
   if (Size != v.Size || StartIndex != v.StartIndex) {
     throw 4;
+  } else {
+    for(int i = 0; i < Size; i++)
+        pVector[i] -= v.pVector[i];
   }
 
-  TVector<VectorType> temp(Size, StartIndex);
-
-  for (int i = 0; i < Size; i++) {
-    temp.pVector[i] = pVector[i] - v.pVector[i];
-  }
-
-  return temp;
+  return *this;
 }
 
 template <class VectorType>
@@ -149,11 +128,10 @@ VectorType TVector<VectorType>::operator*(const TVector<VectorType> &v)
 {
   if (Size != v.Size || StartIndex != v.StartIndex) {
     throw 4;
+  } else {
+    for(int i = 0; i < Size; i++)
+        pVector[i] *= v.pVector[i];
   }
 
-  VectorType skalar = pVector[0]*v.pVector[0];
-  for (int i=1;i<Size;i++){
-    skalar+=(pVector[i]*v.pVector[i]);
-  }
-  return skalar;
+  return *this;
 }
