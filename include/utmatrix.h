@@ -1,12 +1,4 @@
-﻿// ННГУ, ВМК, Курс "Методы программирования-2", С++, ООП
-//
-// utmatrix.h - Copyright (c) Гергель В.П. 07.05.2001
-//   Переработано для Microsoft Visual Studio 2008 Сысоевым А.В. (21.04.2015)
-//
-// Верхнетреугольная матрица - реализация на основе шаблона вектора
-
-#ifndef __TMATRIX_H__
-#define __TMATRIX_H__
+﻿#pragma once
 
 #include <iostream>
 
@@ -14,23 +6,22 @@
 
 using namespace std;
 
-const int MAX_MATRIX_SIZE = 10000;
+#define MAX_MATRIX_SIZE 10000;
 
-// Верхнетреугольная матрица
-template <class ValType>
-class TMatrix : public TVector<TVector<ValType> >
+template <typename MatrixType>
+class TMatrix : public TVector<TVector<MatrixType> >
 {
 public:
-  TMatrix(int s = 10);                           
-  TMatrix(const TMatrix &mt);                    // копирование
-  TMatrix(const TVector<TVector<ValType> > &mt); // преобразование типа
-  bool operator==(const TMatrix &mt) const;      // сравнение
-  bool operator!=(const TMatrix &mt) const;      // сравнение
-  TMatrix& operator= (const TMatrix &mt);        // присваивание
-  TMatrix  operator+ (const TMatrix &mt);        // сложение
-  TMatrix  operator- (const TMatrix &mt);        // вычитание
+  TMatrix(int s = 10);
+  TMatrix(const TMatrix &mt);
+  TMatrix(const TVector<TVector<MatrixType> > &mt);
+  bool operator==(const TMatrix &mt) const;
+  bool operator!=(const TMatrix &mt) const;
+  TMatrix& operator= (const TMatrix &mt);
+  TMatrix  operator+ (const TMatrix &mt);
+  TMatrix  operator- (const TMatrix &mt);
 
-  // ввод / вывод
+  // input\output
   friend istream& operator>>(istream &in, TMatrix &mt)
   {
     for (int i = 0; i < mt.Size; i++)
@@ -44,7 +35,3 @@ public:
     return out;
   }
 };
-
-// TVector О3 Л2 П4 С6
-// TMatrix О2 Л2 П3 С3
-#endif

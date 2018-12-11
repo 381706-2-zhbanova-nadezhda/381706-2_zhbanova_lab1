@@ -1,42 +1,41 @@
-#ifndef __TVECTOR_H__
-#define __TVECTOR_H__
+#pragma once
 
 #include <iostream>
 
 using namespace std;
 
-const int MAX_VECTOR_SIZE = 100000000;
+#define MAX_VECTOR_SIZE 1000000;
 
-// Шаблон вектора
-template <class ValType>
+
+template <class VectorType>
 class TVector
 {
 protected:
-  ValType *pVector;
-  int Size;       // размер вектора
-  int StartIndex; // индекс первого элемента вектора
+  VectorType *pVector;
+  int Size;
+  int StartIndex;
 public:
-  TVector(int s = 10, int si = 0);
-  TVector(const TVector &v);                // конструктор копирования
+  TVector(int s = 1, int si = 0);
+  TVector(const TVector &v);
   ~TVector();
-  int GetSize()      { return Size;       } // размер вектора
-  int GetStartIndex(){ return StartIndex; } // индекс первого элемента
-  ValType& operator[](int pos);             // доступ
-  bool operator==(const TVector &v) const;  // сравнение
-  bool operator!=(const TVector &v) const;  // сравнение
-  TVector& operator=(const TVector &v);     // присваивание
+  int GetSize()      { return Size;       }
+  int GetStartIndex(){ return StartIndex; }
+  VectorType& operator[](int pos);
+  bool operator==(const TVector &v) const;
+  bool operator!=(const TVector &v) const;
+  TVector& operator=(const TVector &v);
 
-  // скалярные операции
-  TVector  operator+(const ValType &val);   // прибавить скаляр
-  TVector  operator-(const ValType &val);   // вычесть скаляр
-  TVector  operator*(const ValType &val);   // умножить на скаляр
 
-  // векторные операции
-  TVector  operator+(const TVector &v);     // сложение
-  TVector  operator-(const TVector &v);     // вычитание
-  ValType  operator*(const TVector &v);     // скалярное произведение
+  TVector  operator+(const VectorType &val);
+  TVector  operator-(const VectorType &val);
+  TVector  operator*(const VectorType &val);
 
-  // ввод-вывод
+
+  TVector  operator+(const TVector &v);
+  TVector  operator-(const TVector &v);
+  VectorType  operator*(const TVector &v);
+
+  // input\output
   friend istream& operator>>(istream &in, TVector &v)
   {
     for (int i = 0; i < v.Size; i++)
@@ -50,5 +49,3 @@ public:
     return out;
   }
 };
-
-#endif
