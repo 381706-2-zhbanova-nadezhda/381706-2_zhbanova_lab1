@@ -62,11 +62,13 @@ template <class VectorType>
 TVector<VectorType>& TVector<VectorType>::operator=(const TVector &v)
 {
   if(&v!=this){
-    Size=v.Size;
     StartIndex = v.StartIndex;
 
+    if (Size != v.Size) {
+    Size=v.Size;
     delete [] pVector;
     pVector = new VectorType [Size];
+    }
 
     for (int i=0;i<Size;i++) pVector[i]=v.pVector[i];
   }
@@ -126,12 +128,13 @@ TVector<VectorType> TVector<VectorType>::operator-(const TVector<VectorType> &v)
 template <class VectorType>
 VectorType TVector<VectorType>::operator*(const TVector<VectorType> &v)
 {
+  VectorType result;
   if (Size != v.Size || StartIndex != v.StartIndex) {
     throw 4;
   } else {
     for(int i = 0; i < Size; i++)
-        pVector[i] = pVector[i] * v.pVector[i];
+        result += pVector[i] * v.pVector[i];
   }
 
-  return *this;
+  return result;
 }
