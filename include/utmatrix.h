@@ -30,8 +30,11 @@ public:
   }
   friend ostream & operator<<( ostream &out, const TMatrix &mt)
   {
-    for (int i = 0; i < mt.Size; i++)
+    for (int i = 0; i < mt.Size; i++) {
+      for (int j = 0; j<i; j++)
+        out<<"0 ";
       out << mt.pVector[i] << endl;
+    }
     return out;
   }
 };
