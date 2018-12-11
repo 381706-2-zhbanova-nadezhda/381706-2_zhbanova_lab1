@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define MAX_MATRIX_SIZE 10000;
+#define MAX_MATRIX_SIZE 10000
 
 template <typename MatrixType>
 class TMatrix : public TVector<TVector<MatrixType> >

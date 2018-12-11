@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define MAX_VECTOR_SIZE 1000000;
+#define MAX_VECTOR_SIZE 1000000
 
 
 template <class VectorType>
