@@ -14,7 +14,6 @@ TVector<VectorType>::TVector(const TVector<VectorType> &v)
 {
   StartIndex=v.StartIndex;
   Size=v.Size;
-  delete [] pVector;
   pVector = new VectorType[Size];
 
   for (int i=0;i<Size;i++) pVector[i]=v.pVector[i];
