@@ -104,7 +104,7 @@ TVector<VectorType> TVector<VectorType>::operator+(const TVector<VectorType> &v)
     throw 4;
   } else {
     for(int i = 0; i < Size; i++)
-        pVector[i] += v.pVector[i];
+        pVector[i] = pVector[i] + v.pVector[i];
   }
 
   return *this;
@@ -117,7 +117,7 @@ TVector<VectorType> TVector<VectorType>::operator-(const TVector<VectorType> &v)
     throw 4;
   } else {
     for(int i = 0; i < Size; i++)
-        pVector[i] -= v.pVector[i];
+        pVector[i] = pVector[i] - v.pVector[i];
   }
 
   return *this;
@@ -130,7 +130,7 @@ VectorType TVector<VectorType>::operator*(const TVector<VectorType> &v)
     throw 4;
   } else {
     for(int i = 0; i < Size; i++)
-        pVector[i] *= v.pVector[i];
+        pVector[i] = pVector[i] * v.pVector[i];
   }
 
   return *this;
