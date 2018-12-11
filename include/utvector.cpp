@@ -126,7 +126,7 @@ TVector<VectorType> TVector<VectorType>::operator-(const TVector<VectorType> &v)
 template <class VectorType>
 VectorType TVector<VectorType>::operator*(const TVector<VectorType> &v)
 {
-  VectorType result;
+  VectorType result=0;
   if (Size != v.Size || StartIndex != v.StartIndex) {
     throw 4;
   } else {

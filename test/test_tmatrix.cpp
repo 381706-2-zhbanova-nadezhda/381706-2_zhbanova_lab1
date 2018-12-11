@@ -28,43 +28,43 @@ TEST(TMatrix, can_create_copied_matrix)
 TEST(TMatrix, copied_matrix_is_equal_to_source_one)
 {
   TMatrix<int> m(5);
-	TMatrix<int> c = m;
+  TMatrix<int> c = m;
 
-	EXPECT_EQ(m, c);
+  EXPECT_EQ(m, c);
 }
 
 TEST(TMatrix, copied_matrix_has_its_own_memory)
 {
   TMatrix<int> m(5);
-	TMatrix<int> c = m;
+  TMatrix<int> c = m;
 
-	c[1][1]=5;
+  c[1][1]=5;
 
-	EXPECT_NE(m,c);
+  EXPECT_NE(m,c);
 }
 
 TEST(TMatrix, can_get_size)
 {
   TMatrix<int> m(4);
 
-	EXPECT_EQ(m.GetSize(), 4);
+  EXPECT_EQ(m.GetSize(), 4);
 }
 
 TEST(TMatrix, can_set_and_get_element)
 {
-	TMatrix<int> m(5);
+  TMatrix<int> m(5);
 
-	m[1][1]=5;
+  m[1][1]=5;
 
-	EXPECT_EQ(m[1][1],5);
+  EXPECT_EQ(m[1][1],5);
 }
 
 TEST(TMatrix, throws_when_set_element_with_negative_index)
 {
   TMatrix<int> m(5);
 
-	
-	ASSERT_ANY_THROW(m[-1][1]=5;);
+
+  ASSERT_ANY_THROW(m[-1][1]=5;);
 }
 
 TEST(TMatrix, throws_when_set_element_with_too_large_index)
