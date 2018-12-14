@@ -24,13 +24,13 @@ public:
   // input\output
   friend istream& operator>>(istream &in, TMatrix &mt)
   {
-    for (int i = 0; i < mt.Size; i++)
+    for (int i = 0; i < mt.size; i++)
       in >> mt.pVector[i];
     return in;
   }
   friend ostream & operator<<( ostream &out, const TMatrix &mt)
   {
-    for (int i = 0; i < mt.Size; i++) {
+    for (int i = 0; i < mt.size; i++) {
       for (int j = 0; j<i; j++)
         out<<"0 ";
       out << mt.pVector[i] << endl;

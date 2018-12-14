@@ -12,15 +12,15 @@ int main()
   cin  >> max_count;
   clock_t time;
   clock_t average_time;
-  for (unsigned size = 10; size < 100000; size *= 10)
+  for ( unsigned size = 10; size < 100000; size *= 10 )
   {
     TMatrix<int> matrix1(size);
     TMatrix<int> matrix2(size);
-    for (int i = 0; i < size; i++)
-      for (int j = i; j < size; j++ )
+    for ( int i = 0; i < size; i++ )
+      for ( int j = i; j < size; j++ )
       {
-      matrix1[i][j] = i;
-      matrix2[i][j] = j;
+        matrix1[i][j] = i;
+        matrix2[i][j] = j;
       }
     average_time = 0;
     for (unsigned count = 0; count < max_count; count++)

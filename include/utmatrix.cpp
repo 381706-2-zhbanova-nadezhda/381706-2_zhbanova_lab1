@@ -3,13 +3,11 @@
 template <class MatrixType>
 TMatrix<MatrixType>::TMatrix(int s): TVector<TVector<MatrixType> >(s)
 {
-  if (s > MAX_MATRIX_SIZE) {
+  if ( s > MAX_MATRIX_SIZE )
     throw 5;
-  }
 
-  for (int i = 0; i < s; i++) {
+  for ( int i = 0; i < s; i++ )
     this -> pVector[i] = TVector<MatrixType>(s - i, i);
-  }
 }
 
 template <class MatrixType>
