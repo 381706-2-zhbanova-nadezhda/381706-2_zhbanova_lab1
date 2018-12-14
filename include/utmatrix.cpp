@@ -48,3 +48,19 @@ TMatrix<MatrixType> TMatrix<MatrixType>::operator-(const TMatrix<MatrixType> &mt
 {
   return TVector<TVector<MatrixType> >::operator-(mt);
 }
+
+template <class MatrixType>
+TMatrix<MatrixType> TMatrix<MatrixType>::operator*(const TMatrix<MatrixType> &mt)
+{
+  if ( size != mt.size ) throw 5;
+  TMatrix<MatrixType> buf (size);
+
+  for (int row = 0; row < size; row++)
+    for (int col = row; col < size; col++)
+    {
+      for (int inner = row; inner <= col; inner++)
+        buf.pVector[row][col - row] += this->pVector[row][inner - row] * mt.pVector[inner][col - inner];
+    }
+
+  return buf;
+}

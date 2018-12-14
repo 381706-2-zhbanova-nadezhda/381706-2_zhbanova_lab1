@@ -26,7 +26,7 @@ int main()
     for (unsigned count = 0; count < max_count; count++)
     {
       time = clock();
-      matrix1 = matrix1 + matrix2;
+      matrix1 + matrix2;
       average_time += clock() - time;
     }
     average_time /= max_count;
