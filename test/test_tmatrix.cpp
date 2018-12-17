@@ -182,23 +182,38 @@ TEST(TMatrix, cant_subtract_matrixes_with_not_equal_size)
 TEST(TMatrix, cant_multiply_matrixes_with_not_equal_size)
 {
   TMatrix<int> m1(3), m2(2);
-  m1[0][0]=3; m1[1][1]=3;m1[0][1]=2;
-  m2[1][1]=5; m2[0][0]=5;m2[0][1]=2;
+  m1[0][0]=3; m1[1][1]=3; m1[0][1]=2;
+  m2[1][1]=5; m2[0][0]=5; m2[0][1]=2;
   ASSERT_ANY_THROW( m2*m1);
 }
 
 
-TEST(TMatrix, multiply_matrixes_with_equal_size)
+TEST(TMatrix, can_multiply_matrixes_with_equal_size)
 {
-  TMatrix<int> m1(2), m2(2);
-  m1[0][0]=1; m1[1][1]=2;m1[0][1]=3;
-  m2[0][0]=1; m2[1][1]=2;m2[0][1]=3;
-
-  m3 = m1 * m2;
-
-  EXPECT_EQ(m3[0][0],1);
-  EXPECT_EQ(m3[1][1],4);
-  EXPECT_EQ(m3[0][1],9);
-
+  TMatrix<int> m1(2), m2(2), m3(2);
+  m1[0][0]=1; m1[1][1]=2; m1[0][1]=3;
+  m2[0][0]=1; m2[1][1]=2; m2[0][1]=3;
+  m3[0][0]=1; m3[1][1]=4; m3[0][1]=9;
+  EXPECT_EQ(m3, (m2 * m1));
 }
 
+TEST(TMatrix, cant_divide_matrixes_with_not_equal_size)
+{
+  TMatrix<double> m1(3), m2(2);
+  m1[0][0]=3; m1[1][1]=3; m1[0][1]=2;
+  m2[1][1]=5; m2[0][0]=5; m2[0][1]=2;
+  ASSERT_ANY_THROW( m2 / m1 );
+}
+
+TEST(TMatrix, can_divide_matrixes_with_equal_size)
+{
+  TMatrix<double> m1(3), m2(3), m3(3);
+  for ( int i = 0; i < 3; i++ )
+    for ( int j = i; j < 3; j++ )
+      m1[i][j] = i + j + 1;
+  for ( int i = 0; i < 3; i++ )
+    for ( int j = i; j < 3; j++ )
+      m2[i][j] = i + j + 2;
+  m3 = m1 / m2;
+  EXPECT_EQ(m3, (m1 / m2));
+}
