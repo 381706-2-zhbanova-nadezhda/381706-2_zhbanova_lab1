@@ -14,6 +14,7 @@
     <ClCompile Include="..\..\samples\sample_performance_check.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\exception\exception.h" />
     <ClInclude Include="..\..\include\tstack.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -80,7 +81,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;../../exception;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "..//Exception/Exception.h"
+#include "exception.h"
 
 using namespace std;
 
