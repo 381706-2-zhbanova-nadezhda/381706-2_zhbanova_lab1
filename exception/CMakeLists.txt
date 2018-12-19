@@ -1,4 +1,4 @@
-set(target ${MP2_LIBRARY})
+set(target ${MP2_EXCEPT})
 
 file(GLOB hdrs "*.h*" "${MP2_INCLUDE}/*.h*")
 file(GLOB srcs "*.cpp")
