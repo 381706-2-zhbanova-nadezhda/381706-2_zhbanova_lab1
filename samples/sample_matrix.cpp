@@ -4,7 +4,7 @@
 
 int main()
 {
-  TMatrix<int> a(5), b(5), c(5);
+  TMatrix<int> a(5), b(5), c(5), d(5);
   int i, j;
   std::cout<<"Matrix addition example"<<std::endl;
 
@@ -20,5 +20,8 @@ int main()
   cout << "Matrix b = " << endl << b << endl;
   cout << "Matrix c = a + b" << endl << c << endl;
 
+  std::cout<<"Matrix division example"<<std::endl;
+  d = a*a;
+  cout << "Matrix d = a*a" << endl << d << endl;
   return 0;
 }

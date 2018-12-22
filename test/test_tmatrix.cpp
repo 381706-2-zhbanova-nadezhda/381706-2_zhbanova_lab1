@@ -207,13 +207,10 @@ TEST(TMatrix, cant_divide_matrixes_with_not_equal_size)
 
 TEST(TMatrix, can_divide_matrixes_with_equal_size)
 {
-  TMatrix<double> m1(3), m2(3), m3(3);
-  for ( int i = 0; i < 3; i++ )
-    for ( int j = i; j < 3; j++ )
-      m1[i][j] = i + j + 1;
-  for ( int i = 0; i < 3; i++ )
-    for ( int j = i; j < 3; j++ )
-      m2[i][j] = i + j + 2;
+  TMatrix<double> m1(2), m2(2), m3(2), m4(2);
+  m1[0][0]=2; m1[0][1]=2; m1[1][1]=2;
+  m2[0][0]=2; m2[0][1]=2; m2[1][1]=2;
   m3 = m1 / m2;
-  EXPECT_EQ(m3, (m1 / m2));
+  m4[0][0]=1; m4[0][1]=0; m4[1][1]=1;
+  EXPECT_EQ(m3, m4);
 }
