@@ -17,6 +17,7 @@ public:
   TStack(int n = 0);
   TStack(TStack<StackType> &S);
   TStack& operator=(const TStack<StackType>& stack);
+  ~TStack() { delete[] memory; }
   StackType Get();
   void Put(StackType A);
   bool IsFull();
