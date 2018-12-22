@@ -1,38 +1,33 @@
 #include <iostream>
-#include <locale.h>
-
 #include "tstack.h"
+#include "time.h"
 
 using namespace std;
 
 int main()
 {
-  int n;
-  cout << "Enter stack size\n";
-  do
-    cin >> n; while (n < 0);
-  TStack<char> symbolStack(n);
-  char symbol;
-  cout << "Enter stack elements\n";
-  for (int i = 0; i < n; i++)
+  int max_count = 0;
+  cout << "Enter number of checks - ";
+  cin  >> max_count;
+  clock_t time;
+  clock_t average_time;
+  for ( unsigned size = 10; size < 1000000; size *= 10 )
   {
-    cin >> symbol;
-    symbolStack.Put(symbol);
+    TStack<int> s1(size);
+    TStack<int> s2(size);
+    for ( int i = 0; i < size; i++ )
+  {
+        s1.Put(i);
+    }
+    average_time = 0;
+    for (unsigned count = 0; count < max_count; count++)
+    {
+      time = clock();
+      s1 = s2;
+      average_time += clock() - time;
+    }
+    average_time /= max_count;
+    cout<< "Time is: " <<average_time<<endl;
   }
-
-  cout << "\n";
-
-  symbolStack.PrintStack();
-
-  cout << "\n\nRemove element from stack\n";
-  symbolStack.Get();
-
-  symbolStack.PrintStack();
-
-  TStack<char> newOne(symbolStack);
-
-  cout << "\n\nCopy constructor\n";
-  newOne.PrintStack();
-
   return 0;
 }

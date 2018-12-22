@@ -5,150 +5,146 @@
 
 using namespace std;
 
-template <class T>
+template <typename StackType>
 class TStack
 {
 protected:
-  int Size;
-  int Top;
-  T* Mas;
+  int size;
+  int top;
+  StackType* memory;
 public:
-  int GetSize() { return Size; }
+  int GetSize() { return size; }
   TStack(int n = 0);
-  TStack(TStack<T> &S);
-  T Get();
-  void Put(T A);
+  TStack(TStack<StackType> &S);
+  TStack& operator=(const TStack<StackType>& stack);
+  StackType Get();
+  void Put(StackType A);
   bool IsFull();
   bool IsEmpty();
   void PrintStack();
 
-  int operator!=(const TStack<T>& stack) const;
-  int operator==(const TStack<T>& stack) const;
-  TStack& operator=(const TStack<T>& stack);
+  bool operator!=(const TStack<StackType>& stack) const;
+  bool operator==(const TStack<StackType>& stack) const;
 };
 //----------------------------------------------------------------------
-template <class T>
-TStack <T> ::TStack(int n)
+template <class StackType>
+TStack <StackType> ::TStack(int n)
 {
-  if (n < 0) throw TException(" Negative size.");
-  else
-  if (n == 0)
+  if ( n < 0 )
+    throw TException(" Negative size.");
+  else if ( n == 0 )
   {
-    Size = Top = 0;
-    Mas = NULL;
+    size = 0;
+    top = 0;
+    memory = NULL;
   }
   else
   {
-    Size = n;
-    Top = 0;
-    Mas = new T[Size];
-    for (int i = 0; i < Size; i++)
-    Mas[i] = 0;
+    size = n;
+	top = 0;
+    memory = new StackType[size];
+    for ( int i = 0; i < size; i++ )
+      memory[i] = 0;
   }
 }
 //----------------------------------------------------------------------
-template <class T>
-TStack <T> ::TStack(TStack <T> &S)
+template <class StackType>
+TStack <StackType> ::TStack(TStack <StackType> &S)
 {
-  Size = S.Size;
-  Top = S.Top;
-  if (Size == 0)
-  Mas = NULL;
+  size = S.size;
+  top = S.top;
+  if ( size == 0 )
+    memory = NULL;
   else
   {
-  Mas = new T[Size];
-  for (int i = 0; i < Size; i++)
-    Mas[i] = S.Mas[i];
+    memory = new StackType[size];
+    for ( int i = 0; i < size; i++ )
+      memory[i] = S.memory[i];
   }
 }
 //----------------------------------------------------------------------
-template <class T>
-void TStack<T> ::Put(T A)
+template <class StackType>
+TStack<StackType>& TStack<StackType> ::operator=(const TStack<StackType>& stack)
 {
-  if (IsFull())
-  throw TException("Stack is full");
-  else
+  if ( this != &stack )
   {
-  Mas[Top] = A;
-  Top++;
-  }
-}
-//----------------------------------------------------------------------
-template <class T>
-T TStack<T> ::Get()
-{
-  if (IsEmpty())
-  throw TException("Stack is empty");
-  else
-  {
-  Top--;
-  return Mas[Top];
-  }
-}
-//----------------------------------------------------------------------
-template <class T>
-bool TStack<T> ::IsFull()
-{
-  if (Top >= Size)
-  return true;
-  else
-  return false;
-}
-//----------------------------------------------------------------------
-template <class T>
-bool TStack<T> ::IsEmpty()
-{
-  if (Top == 0)
-  return true;
-  else
-  return false;
-}
-//----------------------------------------------------------------------
-template <class T>
-TStack<T>& TStack<T> ::operator=(const TStack<T>& stack)
-{
-    if (this != &stack)
+    top = stack.top;
+    if ( size != stack.size )
     {
-      if (Top != stack.Top)
-      {
-        Top = stack.Top;
-        delete[] Mas;
-        Mas = new T[Top];
-      }
-      Size = stack.Size;
-      for (int i = 0; i < Size; i++)
-      {
-        Mas[i] = stack.Mas[i];
-      }
+      size = stack.size;
+      delete[] memory;
+      memory = new StackType[size];
     }
-    return *this;
+    for ( int i = 0; i < size; i++ )
+    {
+      memory[i] = stack.memory[i];
+    }
   }
+  return *this;
+}
 
 //----------------------------------------------------------------------
-template <class T>
-int TStack<T> ::operator==(const TStack<T>& stack) const
+template <class StackType>
+void TStack<StackType> ::Put(StackType A)
 {
-    if (Top != stack.Top)
-      return 0;
-    if (Size != stack.Size)
-      return 0;
-    for (int i = 0; i < Size; i++)
-    {
-      if (Mas[i] != stack.Mas[i])
-        return 0;
-    }
-    return 1;
+  if ( IsFull() )
+  {
+    throw TException("Stack is full");
+  }
+  else
+  {
+    memory[top] = A;
+    top++;
+  }
 }
 //----------------------------------------------------------------------
-template <class T>
-int TStack<T> ::operator!=(const TStack<T>& stack) const
+template <class StackType>
+StackType TStack<StackType> ::Get()
+{
+  if ( IsEmpty() )
+    throw TException("Stack is empty");
+  else
   {
-    return !(*this == stack);
+    top--;
+    return memory[top];
+  }
+}
+//----------------------------------------------------------------------
+template <class StackType>
+bool TStack<StackType> ::IsFull()
+{
+  //ternary operator
+  return top >= size ? true : false;
+}
+//----------------------------------------------------------------------
+template <class StackType>
+bool TStack<StackType> ::IsEmpty()
+{
+  return !top;
+}
+//----------------------------------------------------------------------
+template <class StackType>
+bool TStack<StackType> ::operator==(const TStack<StackType>& stack) const
+{
+  if ( top != stack.top || size != stack.size )
+    return false;
+  for ( int i = 0; i < top; i++ )
+  {
+    if ( memory[i] != stack.memory[i] )
+      return false;
+  }
+  return true;
+}
+//----------------------------------------------------------------------
+template <class StackType>
+bool TStack<StackType> ::operator!=(const TStack<StackType>& stack) const
+  {
+    return !( *this == stack );
   }
 //----------------------------------------------------------------------
-template <class T>
-void TStack<T>:: PrintStack()
+template <class StackType>
+void TStack<StackType>:: PrintStack()
 {
-  for (int i = Top - 1; i >= 0; i--)
-    cout << "\t|" << Mas[i] << "|" << endl;
+  for ( int i = top-1; i >= 0; i-- )
+    cout << "\t|" << memory[i] << "|" << endl;
 }
