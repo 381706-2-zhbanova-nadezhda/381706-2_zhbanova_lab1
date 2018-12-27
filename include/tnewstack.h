@@ -26,7 +26,8 @@ TNewStack<NewStackType>::TNewStack(int _size, NewStackType* _memory)
   TStack<NewStackType>::size = _size;
   TStack<NewStackType>::top = 0;
 
-  if (memory != NULL) delete [] memory;
+  if (TStack<NewStackType>::memory != NULL)
+    delete [] TStack<NewStackType>::memory;
   TStack<NewStackType>::memory = _memory;
 }
 //--------------------------------------------------------------------------
@@ -36,7 +37,8 @@ TNewStack<NewStackType>::TNewStack(TNewStack <NewStackType> &NS)
   TStack<NewStackType>::size = NS.TStack<NewStackType>::size;
   TStack<NewStackType>::top = NS.TStack<NewStackType>::top;
 
-  if (memory != NULL) delete [] memory;
+  if (TStack<NewStackType>::memory != NULL)
+    delete [] TStack<NewStackType>::memory;
   TStack<NewStackType>::memory = NS.TStack<NewStackType>::memory;
 }
 //--------------------------------------------------------------------------
