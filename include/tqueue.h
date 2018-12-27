@@ -120,3 +120,14 @@ bool TQueue<QueueType> ::operator!=(const TQueue<QueueType>& queue) const
 {
   return !( *this == queue );
 }
+
+template <typename QueueType>
+void TQueue<QueueType>:: PrintQueue()
+{
+  for ( int i = start; i <count+start; i++ )
+  {
+    cout<<memory[i % size]<<" | ";
+  }
+    
+  cout << endl;
+}

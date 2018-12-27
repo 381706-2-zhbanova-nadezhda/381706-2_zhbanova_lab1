@@ -1,5 +1,5 @@
 #include <iostream>
-#include "tstack.h"
+#include "tqueue.h"
 #include "time.h"
 
 using namespace std;
@@ -13,8 +13,8 @@ int main()
   clock_t average_time;
   for ( unsigned size = 10; size < 1000000; size *= 10 )
   {
-    TStack<int> s1(size);
-    TStack<int> s2(size);
+    TQueue<int> s1(size);
+    TQueue<int> s2(size);
     for ( unsigned i = 0; i < size; i++ )
   {
         s1.Put(i);
