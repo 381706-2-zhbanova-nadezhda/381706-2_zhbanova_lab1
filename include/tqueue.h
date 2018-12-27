@@ -44,18 +44,18 @@ TQueue<QueueType>& TQueue<QueueType> ::operator=(const TQueue<QueueType>& queue)
 
   start = queue.start;
   count = queue.count;
-  top = queue.top;
+  TStack<QueueType>::top = queue.top;
 
-  if ( size != queue.size )
+  if ( TStack<QueueType>::size != queue.size )
   {
-    size = queue.size;
-    delete[] memory;
-    memory = new QueueType[size];
+    TStack<QueueType>::size = queue.size;
+    delete[] TStack<QueueType>::memory;
+    TStack<QueueType>::memory = new QueueType[TStack<QueueType>::size];
   }
 
   for ( int i = start; i <count+start; i++ )
   {
-    memory[i % size] = queue.memory[i % size];
+    TStack<QueueType>::memory[i % TStack<QueueType>::size] = queue.memory[i % TStack<QueueType>::size];
   }
   return *this;
 }
@@ -67,8 +67,8 @@ void TQueue<QueueType>::Put(QueueType el)
     throw TException("Queue is full.");
   else
   {
-  memory[top] = el;
-  top = ++top % size;
+  TStack<QueueType>::memory[TStack<QueueType>::top] = el;
+  TStack<QueueType>::top = ++TStack<QueueType>::top % TStack<QueueType>::size;
   count++;
   }
 }
@@ -80,8 +80,8 @@ QueueType TQueue<QueueType>::Get()
     throw TException("Queue is empty.");
   else
   {
-    QueueType buf = memory[start];
-    start = ++start % size;
+    QueueType buf = TStack<QueueType>::memory[start];
+    start = ++start % TStack<QueueType>::size;
     count--;
 
     return buf;
@@ -91,7 +91,7 @@ QueueType TQueue<QueueType>::Get()
 template <typename QueueType>
 bool TQueue<QueueType>::IsFull()
 {
-  return count == size ? true: false;
+  return count == TStack<QueueType>::size ? true: false;
 }
 //-----------------------------------------------------------------
 template <typename QueueType>
@@ -104,12 +104,12 @@ template <typename QueueType>
 bool TQueue<QueueType> ::operator==(const TQueue<QueueType>& queue) const
 {
 
-  if ( top != queue.top || size != queue.size ||
+  if ( TStack<QueueType>::top != queue.top || TStack<QueueType>::size != queue.size ||
        count != queue.count || start !=queue.start )
     return false;
   for ( int i = start; i < count + start; i++ )
   {
-    if ( memory[i % size] != queue.memory[i % size] )
+    if ( TStack<QueueType>::memory[i % TStack<QueueType>::size] != queue.memory[i % TStack<QueueType>::size] )
       return false;
   }
   return true;
@@ -126,8 +126,8 @@ void TQueue<QueueType>:: PrintQueue()
 {
   for ( int i = start; i <count+start; i++ )
   {
-    cout<<memory[i % size]<<" | ";
+    cout<<TStack<QueueType>::memory[i % TStack<QueueType>::size]<<" | ";
   }
-    
+
   cout << endl;
 }
