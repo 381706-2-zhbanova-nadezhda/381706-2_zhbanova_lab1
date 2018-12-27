@@ -39,7 +39,7 @@ TEST(TStack, stack_with_elem_isnt_empty)
 {
   TStack<int> s1(3);
   s1.Put(1);
-  EXPECT_EQ(false, s1.IsEmpty());
+  EXPECT_FALSE(s1.IsEmpty());
 }
 
 TEST(TStack, cant_put_in_full_stack)

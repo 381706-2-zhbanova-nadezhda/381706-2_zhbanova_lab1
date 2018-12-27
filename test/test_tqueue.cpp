@@ -39,7 +39,7 @@ TEST(TQueue, queue_with_elem_isnt_empty)
 {
   TQueue<int> s1(3);
   s1.Put(1);
-  EXPECT_EQ(false, s1.IsEmpty());
+  EXPECT_FALSE(s1.IsEmpty());
 }
 
 TEST(TQueue, cant_put_in_full_queue)
