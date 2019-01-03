@@ -16,8 +16,8 @@ int main()
     TQueue<int> s1(size);
     TQueue<int> s2(size);
     for ( unsigned i = 0; i < size; i++ )
-  {
-        s1.Put(i);
+    {
+      s1.Put(i);
     }
     average_time = 0;
     for (unsigned count = 0; count < max_count; count++)
