@@ -18,11 +18,7 @@ public:
   TMStack(int _n, int _size);
   TMStack(TMStack<MultiStackType> &A);
 
-  int GetSize()
-  {
-    return size;
-  }
-
+  int GetSize() { return size; }
   MultiStackType Get(int _n);
 
   void Set(int _n, MultiStackType p);
@@ -71,14 +67,14 @@ TMStack<MultiStackType> ::TMStack(TMStack &A)
 
   int countingSize = 0;
   newS[0] = new TNewStack<MultiStackType>(*(A.newS[0]));
-  newS[0]->TNewStack<MultiStackType>::SetMas(smth[0], memory);
+  newS[0]->TNewStack<MultiStackType>::SetMemory(smth[0], memory);
   for (int i = 1; i < n; i++)
   {
     newS[i] = new TNewStack<MultiStackType>(*(A.newS[i]));
 
     int temp = smth[0] + countingSize;
 
-    newS[i]->TNewStack<MultiStackType>::SetMas(smth[i], &memory[temp]);
+    newS[i]->TNewStack<MultiStackType>::SetMemory(smth[i], &memory[temp]);
     countingSize += smth[i];
   }
 }
@@ -132,6 +128,9 @@ void TMStack<MultiStackType>::Repack(int k)
   cout << "Repacking starts" << endl;
 
   int FreeForNow = GetFreeMemory();
+
+  if ( FreeForNow == 0)
+	  throw TException("Error");
   int eq_add = FreeForNow / n;
   int full_add = FreeForNow % n;
 
@@ -174,7 +173,7 @@ void TMStack<MultiStackType>::Repack(int k)
   }
 
   for (int i = 0; i < n; i++)
-    newS[i]->SetMas(sizeNewOne[i], startNewOne[i]);
+    newS[i]->SetMemory(sizeNewOne[i], startNewOne[i]);
 
   delete[] sizeNewOne;
   delete[] startNewOne;
