@@ -49,7 +49,7 @@ TEST(TArrList, arrlist_with_elem_isnt_empty)
 {
   TArrList <int> list(5);
   list.PutStart(1);
-  EXPECT_EQ(false, list.IsEmpty());
+  ASSERT_FALSE(list.IsEmpty());
 }
 
 TEST(TArrList, cant_put_to_the_start_into_full_arrlist)
