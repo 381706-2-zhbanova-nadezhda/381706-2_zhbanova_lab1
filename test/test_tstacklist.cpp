@@ -45,7 +45,7 @@ TEST(TStackList, stacklist_with_elem_isnt_empty)
 {
   TStackList<int> s1(3);
   s1.Put(1);
-  EXPECT_EQ(false, s1.IsEmpty());
+  ASSERT_FALSE(s1.IsEmpty());
 }
 
 TEST(TStackList, cant_put_in_full_stacklist)
