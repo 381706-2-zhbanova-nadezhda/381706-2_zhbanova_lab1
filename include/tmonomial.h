@@ -27,6 +27,8 @@ public:
   double GetCoeff();
   TMonomial* GetNext();
 
+  bool ComparePowers(TMonomial &A);
+
   TMonomial &operator = ( TMonomial &A );
   TMonomial operator + ( TMonomial &A );
   TMonomial &operator += ( TMonomial &A );
@@ -179,6 +181,16 @@ TMonomial* TMonomial::GetNext()
   return next;
 }
 
+// DONT FORGET TO ADD TO TESTS
+bool TMonomial::ComparePowers(TMonomial &A) {
+	if (n != A.n)
+		return false;
+	for (int i = 0; i < n; i++) 
+		if (power[i] != A.power[i]) 
+			return false;
+	return true;
+};
+
 TMonomial &TMonomial::operator = ( TMonomial &A )
 {
   coeff = A.coeff;
@@ -294,6 +306,9 @@ istream& operator>>( istream &istr, TMonomial &m )
 
 ostream& operator<<( ostream &ostr, TMonomial &m )
 {
-  ostr << m.GetCoeff() << ' ' << m.GetPower();
+  ostr << m.GetCoeff();
+  for(int i = 0; i < m.GetN(); i++)
+	ostr <<"*"<<"x"<<i<<"^"<<m.GetPower()[i];
+
   return ostr;
 }

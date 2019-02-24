@@ -223,3 +223,146 @@ TEST(TPolynomial, throws_when_create_polynomial_with_negative_n)
 {
   ASSERT_ANY_THROW(TPolynomial A(-3));
 }
+
+ TEST(TPolynomial, can_create_copy_polynomial)
+ {
+   TPolynomial A(3);
+   ASSERT_NO_THROW(TPolynomial B(A));
+   TPolynomial C(A);
+   ASSERT_EQ(C.GetSize(), 0);
+   ASSERT_EQ(C.GetN(), 3);
+   if (C.GetStart() != NULL)
+	   ASSERT_TRUE(false);
+ }
+ 
+ TEST(TPolynomial, can_get_size_polynomial)
+ {
+   int a[] = { 1, 2, 3 };
+   int b[] = { 1, 0, 3 };
+   TMonomial A(3, a, 1);
+   TMonomial B(3, b, 2);
+   TPolynomial P(3);
+   P += A;
+   P += B;
+   ASSERT_EQ(P.GetSize(), 2);
+ }
+ 
+ TEST(TPolynomial, can_get_n_of_polynomial)
+ {
+   TPolynomial P(3);
+   ASSERT_EQ(P.GetN(), 3);
+ }
+ 
+ TEST(TPolynomial, trows_when_add_polynomials_with_different_n)
+ {
+ 	TPolynomial P1(2);
+ 	TPolynomial P2(3);
+    ASSERT_ANY_THROW(P1 + P2);
+ }
+ 
+ TEST(TPolynomial, trows_when_subtract_polynomials_with_different_n)
+ {
+ 	TPolynomial P1(2);
+ 	TPolynomial P2(3);
+    ASSERT_ANY_THROW(P1 - P2);
+ }
+ 
+ TEST(TPolynomial, add_polynomials)
+ {
+   int a[] = { 1, 0, 3 };
+   TMonomial M1(3, a, 1);
+   TPolynomial P(3);
+   P += M1;
+
+   int b[] = { 1, 2, 3 };
+   TMonomial M2(3, b, 4);
+   TPolynomial R(3);
+   R += M2;
+
+   TPolynomial S(3);
+   S = R + P;
+
+   TMonomial * ptr = S.GetStart();
+   ASSERT_TRUE( (*ptr == M1 && *ptr->GetNext() == M2) || 
+	            (*ptr == M2 && *ptr->GetNext() == M1) );
+
+   ptr = ptr -> GetNext();
+   if (ptr -> GetNext() != NULL)
+	 ASSERT_TRUE(false);
+ }
+ 
+ TEST(TPolynomial, sub_polynomials)
+ {
+   int a[] = { 1, 0, 3 };
+   TMonomial M1(3, a, 1);
+   TPolynomial P(3);
+   P += M1;
+
+   int b[] = { 1, 2, 3 };
+   TMonomial M2(3, b, 4);
+   TPolynomial R(3);
+   R += M2;
+
+   TPolynomial S(3);
+   S = R - P;
+
+   TMonomial * ptr = S.GetStart();
+   M1.SetCoeff(M1.GetCoeff() * (-1));
+   ASSERT_TRUE( (*ptr == M1 && *ptr->GetNext() == M2) || 
+	            (*ptr == M2 && *ptr->GetNext() == M1) );
+
+   ptr = ptr -> GetNext();
+   if (ptr -> GetNext() != NULL)
+	 ASSERT_TRUE(false);
+ }
+ 
+ TEST(TPolynomial, throws_when_assign_monomials_with_different_n)
+ {
+   TPolynomial P1(4);
+   TPolynomial P2(3);
+   ASSERT_ANY_THROW(P1 = P2);
+ }
+ 
+ TEST(TPolynomial, trows_when_equivalence_polynomials_with_different_n)
+ {
+   TPolynomial P1(3);
+   TPolynomial P2(4);
+   ASSERT_ANY_THROW(P1 == P2);
+ }
+ 
+ TEST(TPolynomial, trows_when_multiply_different_polynomials)
+ {
+   TPolynomial P1(3);
+   TPolynomial P2(4);
+   ASSERT_ANY_THROW(P1 * P2);
+ }
+ 
+ TEST(TPolynomial, trows_when_plus_eq_different_polynomials)
+ {
+   int a[] = { 1, 0, 3, 6  };
+   TMonomial M(4, a, 1);
+   TPolynomial P(3);
+   ASSERT_ANY_THROW(P += M);
+ }
+ 
+ TEST(TPolynomial, trows_when_minus_eq_different_polynomials)
+ {
+   int a[] = { 1, 0, 3, 6 };
+   TMonomial M(4, a, 1);
+   TPolynomial P(3);
+   ASSERT_ANY_THROW(P -= M);
+ }
+
+TEST(TPolynomial, can_add_polynomials_with_equal_n)
+{
+	TPolynomial P1(2);
+	TPolynomial P2(2);
+	ASSERT_NO_THROW(P1 + P2);
+}
+
+TEST(TPolynomial, can_subtract_polynomials_with_equal_n)
+{
+	TPolynomial P1(2);
+	TPolynomial P2(2);
+	ASSERT_NO_THROW(P1 - P2);
+}
