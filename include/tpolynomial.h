@@ -135,7 +135,7 @@ TPolynomial &TPolynomial::operator+=(TMonomial &m)
   else
   {
     TMonomial* last_el = NULL;
-    for ( TMonomial *ptr = start; ptr != NULL; ptr=ptr->GetNext() )
+    for ( TMonomial *ptr = start; ptr != NULL; ptr = ptr->GetNext() )
     {
       if ( ptr->ComparePowers(m) )
       {
@@ -150,9 +150,7 @@ TPolynomial &TPolynomial::operator+=(TMonomial &m)
 
     if ( last_el != NULL )
     {
-      TMonomial *tmp = new TMonomial(m);
-      last_el -> SetNext( tmp );
-      //last_el -> SetNext( new TMonomial(m) );
+      last_el -> SetNext( new TMonomial(m) );
       k++;
     }
   }
