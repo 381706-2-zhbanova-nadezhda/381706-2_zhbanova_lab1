@@ -186,7 +186,8 @@ TPolynomial &TPolynomial::operator-=(TMonomial &m)
 
     if ( last_el != NULL )
     {
-      last_el -> SetNext( new TMonomial(m) );
+      TMonomial *tmp = new TMonomial(m);
+      last_el -> SetNext(tmp);
       last_el -> SetCoeff( last_el ->GetCoeff() * (-1) );
       k++;
     }
