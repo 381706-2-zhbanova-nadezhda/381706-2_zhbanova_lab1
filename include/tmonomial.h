@@ -72,15 +72,15 @@ TMonomial::TMonomial( int _n, int* _power, double _coeff )
   else if ( _n == 0 )
   {
     power = 0;
-	next = NULL;
+  next = NULL;
     coeff = _coeff;
-	n = _n;
+  n = _n;
   }
   else
   {
     n = _n;
-	coeff = _coeff;
-	next = 0;
+  coeff = _coeff;
+  next = 0;
     power = new int[_n];
     for ( int i = 0; i < _n; i++ )
     {
@@ -98,13 +98,13 @@ TMonomial :: TMonomial( TMonomial &A )
   coeff = A.coeff;
   next = A.next;
   if (n != 0) {
-	power = new int[n];
-	for ( int i = 0; i < n; i++ )
-	{
-	  power[i] = A.power[i];
-	}
+  power = new int[n];
+  for ( int i = 0; i < n; i++ )
+  {
+    power[i] = A.power[i];
+  }
   } else
-	power=NULL;
+  power=NULL;
 }
 
 TMonomial::~TMonomial()
@@ -140,13 +140,13 @@ void TMonomial::SetN( int _n )
   else if (_n != n)
   {
     int *tmp = power;
-	power = new int[_n];
+  power = new int[_n];
 
-	int count = n < _n ? n : _n;
-	for (int i = 0; i < count; i++) {
-		power[i]=tmp[i];
-	}
-	delete[] tmp;
+  int count = n < _n ? n : _n;
+  for (int i = 0; i < count; i++) {
+    power[i]=tmp[i];
+  }
+  delete[] tmp;
   }
   n = _n;
 }
@@ -181,14 +181,14 @@ TMonomial* TMonomial::GetNext()
   return next;
 }
 
-// DONT FORGET TO ADD TO TESTS
-bool TMonomial::ComparePowers(TMonomial &A) {
-	if (n != A.n)
-		return false;
-	for (int i = 0; i < n; i++) 
-		if (power[i] != A.power[i]) 
-			return false;
-	return true;
+bool TMonomial::ComparePowers(TMonomial &A)
+{
+  if (n != A.n)
+    return false;
+  for (int i = 0; i < n; i++)
+    if (power[i] != A.power[i])
+      return false;
+  return true;
 };
 
 TMonomial &TMonomial::operator = ( TMonomial &A )
@@ -205,9 +205,9 @@ TMonomial &TMonomial::operator = ( TMonomial &A )
 
 TMonomial TMonomial::operator + ( TMonomial &A )
 {
-	TMonomial tmp(*this);
-	tmp += A;
-	return tmp;
+  TMonomial tmp(*this);
+  tmp += A;
+  return tmp;
 }
 
 TMonomial &TMonomial::operator+=( TMonomial & A )
@@ -215,17 +215,17 @@ TMonomial &TMonomial::operator+=( TMonomial & A )
   if ( n != A.n )
     throw TException( "Error" );
   for ( int i = 0; i < n; i++ )
-	if ( power[i] != A.power[i] )
-	  throw TException( "Error" );
+  if ( power[i] != A.power[i] )
+    throw TException( "Error" );
   coeff += A.coeff;
   return *this;
 }
 
 TMonomial TMonomial::operator - ( TMonomial &A )
 {
-	TMonomial tmp(*this);
-	tmp -= A;
-	return tmp;
+  TMonomial tmp(*this);
+  tmp -= A;
+  return tmp;
 }
 
 TMonomial &TMonomial::operator-=( TMonomial & A )
@@ -233,17 +233,17 @@ TMonomial &TMonomial::operator-=( TMonomial & A )
   if ( n != A.n )
     throw TException( "Error" );
   for ( int i = 0; i < n; i++ )
-	if ( power[i] != A.power[i] )
-	  throw TException( "Error" );
+  if ( power[i] != A.power[i] )
+    throw TException( "Error" );
   coeff -= A.coeff;
   return *this;
 }
 
 TMonomial TMonomial::operator * ( TMonomial &A )
 {
-	TMonomial tmp(*this);
-	tmp *= A;
-	return tmp;
+  TMonomial tmp(*this);
+  tmp *= A;
+  return tmp;
 }
 
 TMonomial &TMonomial::operator *= ( TMonomial & A )
@@ -308,7 +308,7 @@ ostream& operator<<( ostream &ostr, TMonomial &m )
 {
   ostr << m.GetCoeff();
   for(int i = 0; i < m.GetN(); i++)
-	ostr <<"*"<<"x"<<i<<"^"<<m.GetPower()[i];
+  ostr <<"*"<<"x"<<i<<"^"<<m.GetPower()[i];
 
   return ostr;
 }
