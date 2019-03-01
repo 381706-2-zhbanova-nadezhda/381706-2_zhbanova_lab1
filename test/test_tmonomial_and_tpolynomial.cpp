@@ -184,11 +184,11 @@ TEST(TMonomial, equivalence_different_monomials_with_equal_size)
   TMonomial B(3);
   A.SetPower(a);
   B.SetPower(b);
-  ASSERT_EQ(false, A == B);
+  ASSERT_FALSE( A == B);
   B.SetPower(a);
   A.SetCoeff(3.1);
   B.SetCoeff(3.4);
-  ASSERT_EQ(false, A == B);
+  ASSERT_FALSE( A == B);
 }
 
 TEST(TMonomial, can_compare_monomials_with_equal_size)
@@ -197,8 +197,8 @@ TEST(TMonomial, can_compare_monomials_with_equal_size)
   int b[3] = { 1,3,2 };
   TMonomial A(3,a,1);
   TMonomial B(3,b,1);
-  ASSERT_EQ(false, A > B);
-  ASSERT_EQ(true, A < B);
+  ASSERT_FALSE( A > B);
+  ASSERT_TRUE( A < B);
 }
 
 TEST(TMonomial, trows_when_compare_monomials_with_different_size)
@@ -214,7 +214,7 @@ TEST(TMonomial, compare_powers_of_monomials)
   int a[3] = { 1,2,3 };
   TMonomial A(3, a, 4);
   TMonomial B(3, a, 5);
-  ASSERT_EQ(true, A.ComparePowers(B));
+  ASSERT_TRUE( A.ComparePowers(B));
 }
 
 TEST(TPolynomial, can_create_polynomial)
