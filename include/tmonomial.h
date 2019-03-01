@@ -29,7 +29,7 @@ public:
 
   bool ComparePowers( const TMonomial &A);
 
-  TMonomial &operator = ( TMonomial &A );
+  TMonomial &operator = ( const TMonomial &A );
   TMonomial operator + ( TMonomial &A );
   TMonomial &operator += ( const TMonomial &A );
   TMonomial operator - ( TMonomial &A );
@@ -191,7 +191,7 @@ bool TMonomial::ComparePowers( const TMonomial &A)
   return true;
 };
 
-TMonomial &TMonomial::operator = ( TMonomial &A )
+TMonomial &TMonomial::operator = ( const TMonomial &A )
 {
   coeff = A.coeff;
   n = A.n;
