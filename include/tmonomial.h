@@ -14,7 +14,7 @@ protected:
 public:
   TMonomial( int _n = 10 );
   TMonomial( int _n, int *_power, double _coeff );
-  TMonomial( TMonomial &A );
+  TMonomial( const TMonomial &A );
   ~TMonomial();
 
   void SetPower( int *_power );
@@ -23,17 +23,17 @@ public:
   void SetNext( TMonomial* _next );
 
   int *GetPower();
-  int GetN();
-  double GetCoeff();
+  int GetN() const;
+  double GetCoeff() const;
   TMonomial* GetNext();
 
-  bool ComparePowers(TMonomial &A);
+  bool ComparePowers( const TMonomial &A);
 
   TMonomial &operator = ( TMonomial &A );
   TMonomial operator + ( TMonomial &A );
-  TMonomial &operator += ( TMonomial &A );
+  TMonomial &operator += ( const TMonomial &A );
   TMonomial operator - ( TMonomial &A );
-  TMonomial &operator -= ( TMonomial &A );
+  TMonomial &operator -= ( const TMonomial &A );
   TMonomial operator * ( TMonomial &A );
   TMonomial &operator *= ( TMonomial &A );
 
@@ -92,7 +92,7 @@ TMonomial::TMonomial( int _n, int* _power, double _coeff )
   }
 }
 
-TMonomial :: TMonomial( TMonomial &A )
+TMonomial :: TMonomial( const TMonomial &A )
 {
   n = A.n;
   coeff = A.coeff;
@@ -166,12 +166,12 @@ int *TMonomial::GetPower()
   return power;
 }
 
-int TMonomial::GetN()
+int TMonomial::GetN() const
 {
   return n;
 }
 
-double TMonomial::GetCoeff()
+double TMonomial::GetCoeff() const 
 {
   return coeff;
 }
@@ -181,7 +181,7 @@ TMonomial* TMonomial::GetNext()
   return next;
 }
 
-bool TMonomial::ComparePowers(TMonomial &A)
+bool TMonomial::ComparePowers( const TMonomial &A)
 {
   if (n != A.n)
     return false;
@@ -210,7 +210,7 @@ TMonomial TMonomial::operator + ( TMonomial &A )
   return tmp;
 }
 
-TMonomial &TMonomial::operator+=( TMonomial & A )
+TMonomial &TMonomial::operator+=( const TMonomial & A )
 {
   if ( n != A.n )
     throw TException( "Error" );
@@ -228,7 +228,7 @@ TMonomial TMonomial::operator - ( TMonomial &A )
   return tmp;
 }
 
-TMonomial &TMonomial::operator-=( TMonomial & A )
+TMonomial &TMonomial::operator-=( const TMonomial & A )
 {
   if ( n != A.n )
     throw TException( "Error" );
