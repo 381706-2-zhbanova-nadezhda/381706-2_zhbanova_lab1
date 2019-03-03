@@ -20,6 +20,7 @@ public:
   ~TStack() { delete[] memory; }
 
   StackType Get();
+  StackType ShowLast();
   void Put(StackType A);
   bool IsFull();
   bool IsEmpty();
@@ -109,6 +110,17 @@ StackType TStack<StackType> ::Get()
   {
     top--;
     return memory[top];
+  }
+}
+//----------------------------------------------------------------------
+template <typename StackType>
+StackType TStack<StackType> ::ShowLast()
+{
+  if ( IsEmpty() )
+    throw TException("Stack is empty");
+  else
+  {
+    return memory[top - 1];
   }
 }
 //----------------------------------------------------------------------

@@ -1,19 +1,19 @@
 #include <iostream>
 #include <locale.h>
+#include <string>
 
 #include "polish.h"
+#include "tqueue.h"
 
 using namespace std;
 
 int main()
 {
-  try
-  {
-    
-  }
-  catch (TException exp)
-  {
-    exp.Show();
-  }
-  return 0;
+	string calc_exp;
+	cout << "Enter string: " << endl;
+	cin >> calc_exp;
+	
+	TQueue<char> polish = Polish::ToPolish(calc_exp);
+	cout << "Result is: " << Polish::Calculate(polish) << endl;
+	return 0;
 }
