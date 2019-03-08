@@ -15,7 +15,7 @@ protected:
 public:
   int GetSize() { return size; }
   TStack(int n = 0);
-  TStack(TStack<StackType> &S);
+  TStack(const TStack<StackType> &S);
   TStack& operator=(const TStack<StackType>& stack);
   ~TStack() { delete[] memory; }
 
@@ -52,7 +52,7 @@ TStack <StackType> ::TStack(int n)
 }
 //----------------------------------------------------------------------
 template <typename StackType>
-TStack <StackType> ::TStack(TStack <StackType> &S)
+TStack <StackType> ::TStack( const TStack <StackType> &S)
 {
   size = S.size;
   top = S.top;

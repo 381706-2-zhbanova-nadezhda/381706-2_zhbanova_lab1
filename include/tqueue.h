@@ -10,7 +10,7 @@ protected:
   int count;
 public:
   TQueue(int n = 0);
-  TQueue(TQueue <QueueType> &Q);
+  TQueue(const TQueue <QueueType> &Q);
   TQueue& operator=(const TQueue<QueueType>& queue);
 
   QueueType Get();
@@ -24,14 +24,14 @@ public:
 };
 //-----------------------------------------------------------------
 template <typename QueueType>
-TQueue<QueueType>::TQueue(int n) : TStack<QueueType>(n)
+TQueue<QueueType>::TQueue(int n): TStack<QueueType>(n)
 {
   start = 0;
   count = 0;
 }
 //-----------------------------------------------------------------
 template <typename QueueType>
-TQueue<QueueType>::TQueue(TQueue<QueueType> &Q) : TStack<QueueType>(Q)
+TQueue<QueueType>::TQueue( const TQueue<QueueType> &Q) : TStack<QueueType>(Q)
 {
   start = Q.start;
   count = Q.count;
