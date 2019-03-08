@@ -13,13 +13,18 @@ int main()
   clock_t average_time;
   for ( unsigned size = 10; size < 1000000; size *= 10 )
   {
+    int* powers = new int[size];
+    for ( int i = 0; i < size; i++ )
+    {
+      powers[i] = i;
+    }
+    TMonomial A(size, powers, 1);
     TPolynomial p1(size);
-    TPolynomial p2(size);
     average_time = 0;
-    for (unsigned count = 0; count < max_count; count++)
+    for ( unsigned count = 0; count < max_count; count++ )
     {
       time = clock();
-      p1 = p2;
+      p1 += A;
       average_time += clock() - time;
     }
     average_time /= max_count;
