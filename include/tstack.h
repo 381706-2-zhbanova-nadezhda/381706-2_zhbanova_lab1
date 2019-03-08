@@ -117,7 +117,7 @@ template <typename StackType>
 StackType TStack<StackType> ::ShowLast()
 {
   if ( IsEmpty() )
-    throw TException("Stack is empty");
+    throw TException( "Stack is empty" );
   else
   {
     return memory[top - 1];
