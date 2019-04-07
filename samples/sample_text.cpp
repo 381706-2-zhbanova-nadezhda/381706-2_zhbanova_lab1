@@ -4,6 +4,7 @@
 
 int main()
 {
-  TTree tree(std::string("abc"));
+  TText text(std::string("abc"));
+  cout<<text.ToStr()<<endl;
   return 0;
 }

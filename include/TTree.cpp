@@ -2,18 +2,12 @@
 
 using namespace std;
 
-int TTree::sizeMas = 0;
-char* TTree::mas = NULL;
-TTree* TTree::start = NULL;
-TTree* TTree::end = NULL;
-TTree* TTree::_free = NULL;
-
 int GetLevelByString( string str )
 {
   int level;
   if ( str.size() == 1 )
   {
-    level = 4; // letter
+    level = 4; // character
     return level;
   }
   else
@@ -42,23 +36,23 @@ bool StringDelimeter(string str, int i) { return (str[i] == '\n') ? true : false
 bool WordDelimeter(string str, int i) { return isspace(str[i]); }
 bool CharDelimeter(string str, int i) { return true; };
 
-TTree::TTree( const char _d )
-{
-  Init();
-  d = _d;
-  pDown = NULL;
-  pNext = NULL;
-  level = 3;
-}
+// TTree::TTree( const char _d )
+// {
+//   Init();
+//   d = _d;
+//   pDown = NULL;
+//   pNext = NULL;
+//   level = 3;
+// }
 TTree::TTree( const unsigned _l )
 {
-  if ( _l < 0 || _l > 3 )
-    throw std::exception();
-  Init();
-  d = 0;
-  pDown = NULL;
-  pNext = NULL;
-  level = _l;
+//  if ( _l < 0 || _l > 3 )
+//    throw std::exception();
+//  Init();
+//  d = 0;
+//  pDown = NULL;
+//  pNext = NULL;
+//  level = _l;
 }
 TTree::TTree( const string& str )
 {
@@ -75,96 +69,84 @@ TTree::TTree( const string& str )
   switch( GetLevelByString(str) )
   {
   case 0: // text
-  {
     level = 0;
     delim = ParagraphDelimeter;
     break;
-  }
-  case 1: // multistring
-  {
+  case 1: // strings
     level = 1;
     delim = StringDelimeter;
     break;
-  }
-  case 2: // string
-  {
-    level = 1;
+  case 2: // words
+    level = 2;
     delim = WordDelimeter;
     break;
-  }
-  case 3: // word
-  {
-    level = 2;
+  case 3: // characters
+    d = str[0];
+    level = 3;
     delim = CharDelimeter;
     break;
-  }
-  case 4: // letter
-  {
-    Init();
+  case 4: // 1 character
     d = str[0];
-    pDown = NULL;
-    pNext = NULL;
     level = 3;
     break;
-  }
   default:
     throw std::exception();
+    break;
   }
 
   for ( unsigned i = 0; i < str.size() - 1; i++ )
   {
     if (delim)
     {
-      if (flag)
+      pos = i + 1;
+      if (flag && level < 3)
       {
-        tmp = new TTree( std::string(str,pos, i) );
-        pDown = tmp;
+        pDown = new TTree( std::string(str,pos, i) );
         flag = false;
       }
       else
       {
-        tmp ->pNext = new TTree( std::string(str,pos, i - pos) );
-        tmp = tmp -> pNext;
+        tmp = new TTree( std::string(str,pos, i - pos) );
+        pNext = tmp;
+        tmp = pNext->pNext;
       }
-      pos = i + 1;
     }
   }
 }
 
 TTree::TTree( const TTree& a )
 {
-  level = a.level;
-  d = a.d;
-  if ( a.pDown != NULL )
-  pDown = new TTree( *(a.pDown) );
-  else
-  pDown = a.pDown;
-
-  if ( a.pNext != NULL )
-    pNext = new TTree( *(a.pNext) );
-  else
-  pNext = a.pNext;
+//  level = a.level;
+//  d = a.d;
+//  pDown = NULL;
+//  pNext = NULL;
+//
+//  if ( a.pDown != NULL )
+//    pDown = new TTree( *(a.pDown) );
+//
+//  if ( a.pNext != NULL )
+//    pNext = new TTree( *(a.pNext) );
 }
+
 TTree& TTree::operator=( const TTree& a )
 {
-  for ( TTreeIter t(this); !t.IsEnd(); t++ )
-  {
-    if ( t() != this )
-      delete t();
-  }
-
-  level = a.level;
-  d = a.d;
-  if ( a.pDown != NULL )
-    pDown = new TTree( *(a.pDown) );
-  else
-    pDown = a.pDown;
-
-  if ( a.pNext != NULL )
-    pNext = new TTree( *(a.pNext) );
-  else
-    pNext = a.pNext;
-
+//  for ( TTreeIter t(this); !t.IsEnd(); t++ )
+//  {
+//    if ( t() != this )
+//      delete t();
+//  }
+//
+//  level = a.level;
+//  d = a.d;
+//  pDown = NULL;
+//  pNext = NULL;
+//
+//  if ( a.pDown != NULL )
+//    pDown = new TTree( *(a.pDown) );
+//
+//  if ( a.pNext != NULL )
+//    pNext = new TTree( *(a.pNext) );
+//
   return *this;
 }
 
@@ -178,21 +160,19 @@ TTree::~TTree()
 
 TTree& TTree::operator+=( const TTree& a )
 {
-  TTree* tmp = this;
-  // ���� ������� ������������� ������ ���������
-  // (� ������ ����� �����, � ����� ������ - ������)
-  if ( this->level < a.level )
-    throw std::exception();
-  while ( tmp->level != a.level ) // ����� �� ������, �� ������� ���� ���� �����
-    tmp = tmp->pDown;
-  while ( tmp->pNext != NULL ) // ����� �� ���������� �������� ������
-    tmp = tmp->pNext;
-  tmp->pNext = new TTree(a);
+//  TTree* tmp = this;
+//  if ( this->level < a.level )
+//    throw std::exception();
+//  while ( tmp->level != a.level )
+//    tmp = tmp->pDown;
+//  while ( tmp->pNext != NULL )
+//    tmp = tmp->pNext;
+//  tmp->pNext = new TTree(a);
   return *this;
 }
 TTree& TTree::operator+=( char c )
 {
-  TTree symb(c);
+  TTree symb(string(1,c));
   return ( *this += symb );
 }
 TTree& TTree::operator+=( const string& c )
@@ -213,15 +193,12 @@ void* TTree::operator new ( unsigned int size_t )
     _free = _free -> pDown;
     return tmp;
     //TTree* a = _free;
-    ////�� �� ������ ��������� ������
-    //  //� �� ������ ��������� ���������
     //_free = _free->pDown;
-    ////�������� ������� ���-�� ��������� ������
     //TTree* b = a;
     //for( int i = 0; i < sizeMas /*?size*/ && _free != 0; i++ )
     //{
     //  if ( b == 0 )
-    //    throw std::exception( "��� ��������� ������" );
+    //    throw std::exception( " " );
     //  else
     //    _free = _free->pDown;
     //}
@@ -234,9 +211,7 @@ void* TTree::operator new ( unsigned int size_t )
 }
 void TTree::operator delete ( void* a )
 {
-  //������� ������������� �� ��
   TTree* t = (TTree*)a;
-  //���������� ������ � �������� ������
   t -> pDown = _free;
   _free = t;
   t -> d = -1;
@@ -388,7 +363,6 @@ void TTree::Init( int size )
 }
 void TTree::GarbageCollector()
 {
-  //�������� ��� ������������� �� �� ��������, d = -1 - ������� �� �����
   _free = 0;
   for( int i = 0; i < sizeMas; i++ )
   {
@@ -399,3 +373,9 @@ void TTree::GarbageCollector()
     }
   }
 }
+
+int TTree::sizeMas = 0;
+char* TTree::mas = NULL;
+TTree* TTree::start = NULL;
+TTree* TTree::end = NULL;
+TTree* TTree::_free = NULL;
