@@ -93,8 +93,8 @@ TPlex& TPlex::operator +=(TLine& A)
 {
   if (right == NULL && left == NULL)
   {
-    left = &A.GetPointA();
-    right = &A.GetPointB();
+    left = A.GetPointA();
+    right = A.GetPointB();
   }
   else
   {
@@ -109,7 +109,7 @@ TPlex& TPlex::operator +=(TLine& A)
     {
       TPoint* tmp = memory.top();
       TPlex* pl = dynamic_cast<TPlex*>(memory2.top());
-      if (*tmp != A.GetPointA() && *tmp != A.GetPointB())
+      if (*tmp != *A.GetPointA() && *tmp != *A.GetPointB())
       {
         TPlex* px = dynamic_cast<TPlex*>(tmp);
         if (px != NULL)
@@ -120,25 +120,25 @@ TPlex& TPlex::operator +=(TLine& A)
           memory2.push(px);
         }
       }
-      else if (*tmp == A.GetPointA())
+      else if (*tmp == *A.GetPointA())
       {
         flag = false;
         if (*tmp == *pl->left)
         {
-          pl->left = new TPlex(&A.GetPointB(), &A.GetPointA());
+          pl->left = new TPlex(A.GetPointB(), A.GetPointA());
         }
         else
         {
-          pl->right = new TPlex(&A.GetPointB(), &A.GetPointA());
+          pl->right = new TPlex(A.GetPointB(), A.GetPointA());
         }
       }
-      else if (*tmp == A.GetPointB())
+      else if (*tmp == *A.GetPointB())
       {
         flag = false;
         if (*tmp == *pl->left)
-          pl->left = new TPlex(&A.GetPointA(), &A.GetPointB());
+          pl->left = new TPlex(A.GetPointA(), A.GetPointB());
         else
-          pl->right = new TPlex(&A.GetPointA(), &A.GetPointB());
+          pl->right = new TPlex(A.GetPointA(), A.GetPointB());
       }
     }
   }

@@ -16,8 +16,8 @@ public:
   ~TLine();
   void SetPointA(TPoint* _A);
   void SetPointB(TPoint* _B);
-  TPoint GetPointA();
-  TPoint GetPointB();
+  TPoint* GetPointA();
+  TPoint* GetPointB();
   int GetX1();
   int GetY1();
   int GetX2();
@@ -69,14 +69,14 @@ void TLine::SetPointB(TPoint* _B)
   B = new TPoint(*_B);
 }
 //----------------------------------------------------------------------
-TPoint TLine::GetPointA()
+TPoint* TLine::GetPointA()
 {
-  return *A;
+  return A;
 }
 //----------------------------------------------------------------------
-TPoint TLine::GetPointB()
+TPoint* TLine::GetPointB()
 {
-  return *B;
+  return B;
 }
 //----------------------------------------------------------------------
 int TLine::GetX1()

@@ -105,8 +105,8 @@ TEST(TLine, can_get_point_A_and_point_B)
   TPoint point(3,5);
   TPoint point2(9,1);
   TLine line(&point, &point2);
-  EXPECT_TRUE(line.GetPointA() == point);
-  EXPECT_TRUE(line.GetPointB() == point2);
+  EXPECT_TRUE(*line.GetPointA() == point);
+  EXPECT_TRUE(*line.GetPointB() == point2);
 }
 
 TEST(TLine, can_set_point_A_and_point_B)
