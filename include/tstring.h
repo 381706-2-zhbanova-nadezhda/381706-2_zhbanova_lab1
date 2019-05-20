@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <cstring>
 #include "exception.h"
@@ -98,7 +99,7 @@ bool TString::operator!=(const TString& A) const
 //----------------------------------------------------------------------
 bool TString::operator<(const TString& A) const
 {
-  bool result = false;
+  bool res = false;
   if (count < A.count)
     return true;
   else if (count > A.count)
@@ -108,16 +109,16 @@ bool TString::operator<(const TString& A) const
     for (int i = 0; i < count; i++)
       if (memory[i] < A.memory[i])
       {
-        result = true;
+        res = true;
         break;
       }
   }
-  return result;
+  return res;
 }
 //----------------------------------------------------------------------
 bool TString::operator>(const TString& A) const
 {
-  bool result = false;
+  bool res = false;
   if (count < A.count)
     return false;
   else if (count > A.count)
@@ -126,10 +127,10 @@ bool TString::operator>(const TString& A) const
     for (int i = 0; i < count; i++)
       if (memory[i] > A.memory[i])
       {
-        result = true;
+        res = true;
         break;
       }
-  return result;
+  return res;
 }
 //----------------------------------------------------------------------
 char& TString::operator[](const int a) const

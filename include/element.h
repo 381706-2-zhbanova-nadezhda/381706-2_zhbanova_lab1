@@ -19,8 +19,6 @@ public:
   TElement& operator=(const TElement<ElemType>& A);
   bool operator==(const TElement<ElemType>& A);
   bool operator!=(const TElement<ElemType>& A);
-  bool operator<=(const TElement<ElemType>& A);
-  bool operator>=(const TElement<ElemType>& A);
 
   ElemType& GetData();
   TString& GetKey();
@@ -71,18 +69,6 @@ bool TElement<ElemType>::operator!=(const TElement<ElemType>& A)
     return false;
   return true;
 }
-//----------------------------------------------------------------------
-//template <typename ElemType>
-//bool TElement<ElemType>::operator<=(const TElement<ElemType>& A)
-//{
-//
-//}
-////----------------------------------------------------------------------
-//template <typename ElemType>
-//bool TElement<ElemType>::operator>=(const TElement<ElemType>& A)
-//{
-//
-//}
 //----------------------------------------------------------------------
 template <typename ElemType>
 ElemType& TElement<ElemType>::GetData()

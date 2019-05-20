@@ -1,10 +1,6 @@
 #pragma once
 #include "element.h"
 
-//#include "SortTable.h"
-//template <class T>
-//class TSortTable;
-
 using namespace std;
 
 template <typename TableSeeType>
@@ -15,7 +11,7 @@ protected:
   TElement<TableSeeType>* node;
   int size;
   int count;
-  void Expansion(const int newsize);
+  void Expansion(const int _size);
 public:
   TTableSee(const int _size = 1);
   TTableSee(const TTableSee<TableSeeType>& A);
@@ -24,27 +20,26 @@ public:
   int GetCount() const;
 
   bool Add(const TElement<TableSeeType>& A);
+  bool Delete(TElement<TableSeeType>& A);
   TString& Add(const TableSeeType& A);
-  bool Del(TElement<TableSeeType>& A);
-  bool Del(const TString& A);
+  bool Delete(const TString& A);
 
   TElement<TableSeeType>& Search(const TString& A) const;
   TableSeeType& operator[](const TString& A) const;
-  //friend class TSortTable<TableSeeType>;
   friend ostream& operator<<(ostream& ostr, const TTableSee<TableSeeType>& A);
 };
 //----------------------------------------------------------------------
 template <typename TableSeeType>
-void TTableSee<TableSeeType>::Expansion(const int newsize)
+void TTableSee<TableSeeType>::Expansion(const int _size)
 {
-  if (newsize > size)
+  if (_size > size)
   {
-    TElement<TableSeeType>* tmp = new TElement<TableSeeType>[newsize];
+    TElement<TableSeeType>* tmp = new TElement<TableSeeType>[_size];
     for (int i = 0; i < count; i++)
       tmp[i] = node[i];
-    for (int i = count; i < newsize; i++)
+    for (int i = count; i < _size; i++)
       tmp[i] = st;
-    size = newsize;
+    size = _size;
     delete[] node;
     node = tmp;
   }
@@ -121,7 +116,7 @@ TString& TTableSee<TableSeeType>::Add(const TableSeeType& A)
 }
 //----------------------------------------------------------------------
 template <typename TableSeeType>
-bool TTableSee<TableSeeType>::Del(TElement<TableSeeType>& A)
+bool TTableSee<TableSeeType>::Delete(TElement<TableSeeType>& A)
 {
   if (count == 0)
     return false;
@@ -140,7 +135,7 @@ bool TTableSee<TableSeeType>::Del(TElement<TableSeeType>& A)
 }
 //----------------------------------------------------------------------
 template <typename TableSeeType>
-bool TTableSee<TableSeeType>::Del(const TString& A)
+bool TTableSee<TableSeeType>::Delete(const TString& A)
 {
   if (count == 0)
     return false;
