@@ -48,7 +48,7 @@ template <typename ElemType>
 TElement<ElemType>::TElement(const ElemType& A)
 {
   data = A.data;
-  key = B.key;
+  key = A.key;
 }
 //----------------------------------------------------------------------
 template <typename ElemType>
