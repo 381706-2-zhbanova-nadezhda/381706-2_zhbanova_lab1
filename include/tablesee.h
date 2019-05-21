@@ -18,6 +18,7 @@ public:
   ~TTableSee();
 
   int GetCount() const;
+  int GetSize() const;
 
   bool Add(const TElement<TableSeeType>& A);
   bool Delete(TElement<TableSeeType>& A);
@@ -26,7 +27,8 @@ public:
 
   TElement<TableSeeType>& Search(const TString& A) const;
   TableSeeType& operator[](const TString& A) const;
-  friend ostream& operator<<(ostream& ostr, const TTableSee<TableSeeType>& A);
+  template <typename Op>
+  friend ostream& operator<<(ostream& ostr, const TTableSee<Op>& A);
 };
 //----------------------------------------------------------------------
 template <typename TableSeeType>
@@ -86,6 +88,12 @@ int TTableSee<TableSeeType>::GetCount() const
 }
 //----------------------------------------------------------------------
 template <typename TableSeeType>
+int TTableSee<TableSeeType>::GetSize() const
+{
+  return size;
+}
+//----------------------------------------------------------------------
+template <typename TableSeeType>
 bool TTableSee<TableSeeType>::Add(const TElement<TableSeeType>& A)
 {
   if (size == count)
@@ -101,16 +109,8 @@ TString& TTableSee<TableSeeType>::Add(const TableSeeType& A)
   if (size == count)
     Expansion(count * 2);
   node[count].SetData(A);
-  TString tmp("Key");
-  if (count == 0)
-    node[count].SetKey(tmp);
-  else
-  {
-    char letter = (node[count - 1].GetKey().GetMemory())[0];
-    TString tmp1(&letter);
-    tmp = tmp1;
-    node[count].SetKey(tmp);
-  }
+  TString string("Key");
+  node[count].SetKey(string);
   count++;
   return node[count - 1].GetKey();
 }
@@ -168,8 +168,8 @@ TableSeeType& TTableSee<TableSeeType>::operator[](const TString& A) const
   return Search(A).GetData();
 }
 //----------------------------------------------------------------------
-template <typename TableSeeType>
-ostream& operator<<(ostream& ostr, const TTableSee<TableSeeType>& A)
+template <typename Op>
+ostream& operator<<(ostream& ostr, const TTableSee<Op>& A)
 {
   for (int i = 0; i < A.GetCount(); i++)
     ostr << A.node[i] << endl;

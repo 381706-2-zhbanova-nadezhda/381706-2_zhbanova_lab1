@@ -14,6 +14,7 @@ protected:
 public:
   TElement();
   TElement(const ElemType& A, const TString& B);
+  TElement(const ElemType& A);
   ~TElement(){}
 
   TElement& operator=(const TElement<ElemType>& A);
@@ -25,8 +26,8 @@ public:
 
   void SetData(const ElemType& A);
   void SetKey(const TString& A);
-
-  friend ostream& operator<<(ostream& out, TElement<ElemType>& A);
+  template <typename Operator>
+  friend ostream& operator<<(ostream& out, TElement<Operator>& A);
 };
 //----------------------------------------------------------------------
 template <typename ElemType>
@@ -41,6 +42,13 @@ TElement<ElemType>::TElement(const ElemType& A, const TString& B)
 {
   data = A;
   key = B;
+}
+//----------------------------------------------------------------------
+template <typename ElemType>
+TElement<ElemType>::TElement(const ElemType& A)
+{
+  data = A.data;
+  key = B.key;
 }
 //----------------------------------------------------------------------
 template <typename ElemType>
@@ -94,16 +102,10 @@ void TElement<ElemType>::SetKey(const TString& A)
   key = A;
 }
 //----------------------------------------------------------------------
-template <typename ElemType>
-ostream& operator<<(ostream& ostr, TElement<ElemType>& A)
+template <typename Operator>
+ostream& operator<<(ostream& ostr, TElement<Operator>& A)
 {
-  //int i = 0; 
-  //do {
-  //  i++;
-  //  ostr << "-";
-  //} while (A.GetKey().GetCount() == i-3);
-  //ostr << endl;
   ostr << "|" << A.GetKey().GetMemory() << "|";
-  ostr << A.GetData() <<"|"<< endl;
+  ostr << A.GetData() <<"|";
   return ostr;
 }
