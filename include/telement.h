@@ -27,7 +27,7 @@ public:
   void SetData(const ElemType& A) { data = A; }
   void SetKey(const TString& A) { key = A; }
   template <typename Operator>
-  friend ostream& operator<<(ostream& out, TElement<Operator>& A);
+  friend ostream& operator<<(ostream& ostr, TElement<Operator>& A);
 };
 //----------------------------------------------------------------------
 template <typename ElemType>

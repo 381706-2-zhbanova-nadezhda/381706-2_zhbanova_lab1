@@ -290,3 +290,198 @@ TEST(TTableSee, can_delete_element_from_not_empty_table)
 }
 
 //TESTS FOR CLASS TTableSort
+
+TEST(TSortTable, can_create_table_without_parametres)
+{
+  TSortTable<int> table;
+  EXPECT_EQ(table.GetSize(), 1);
+}
+
+TEST(TSortTable, can_create_table_with_parametres)
+{
+  TSortTable<int> table(10);
+  EXPECT_EQ(table.GetSize(), 10);
+}
+
+TEST(TSortTable, can_use_resize)
+{
+  TString string("one");
+  TElement<int> element(1, string);
+  TString string2("two");
+  TElement<int> element2(1, string2);
+  TSortTable<int> table(1);
+  table.Add(element);
+  ASSERT_NO_THROW(table.Add(element2));
+}
+
+TEST(TSortTable, can_create_sort_table_using_different_sortings)
+{
+  TTableSee<int> table(3);
+  TString string("one");
+  TElement<int> element(1, string);
+  TString string2("two");
+  TElement<int> element2(2, string2);
+  TString string3("three");
+  TElement<int> element3(3, string3);
+  table.Add(element3);
+  table.Add(element);
+  table.Add(element2);
+  ASSERT_NO_THROW(TSortTable<int> temp(table, 1));
+  ASSERT_NO_THROW(TSortTable<int> temp1(table, 2));
+  ASSERT_NO_THROW(TSortTable<int> temp2(table, 3));
+}
+
+TEST(TSortTable, can_create_copy_of_table)
+{
+  TSortTable<int> table(10);
+  TSortTable<int> table2(table);
+  EXPECT_EQ(table2.GetSize(), 10);
+}
+
+TEST(TSortTable, can_get_size)
+{
+  TSortTable<int> table(10);
+  EXPECT_EQ(table.GetSize(), 10);
+}
+
+TEST(TSortTable, can_get_count)
+{
+  TSortTable<int> table(10);
+  EXPECT_EQ(table.GetCount(), 0);
+  TString string("new");
+  TElement<int> element(1, string);
+  table.Add(element);
+  EXPECT_EQ(table.GetCount(), 1);
+}
+
+TEST(TSortTable, can_add_element)
+{
+  TSortTable<int> table(10);
+  TString string("One");
+  TElement<int> element(1, string);
+  table.Add(element);
+  EXPECT_EQ(table[string], 1);
+}
+
+TEST(TSortTable, can_add_element_without_key)
+{
+  TSortTable<int> table(5);
+  TString string = table.Add(15);
+  EXPECT_EQ(string.GetMemory()[0], 'K');
+  EXPECT_EQ(string.GetMemory()[1], 'e');
+  EXPECT_EQ(string.GetMemory()[2], 'y');
+  TString string2 = "Key";
+  TElement<int> element2(15, string2);
+  EXPECT_TRUE(table.LineSearch(string) == element2);
+}
+
+TEST(TSortTable, cad_delete_element_by_two_ways)
+{
+  TString string("one");
+  TElement<int> element(1, string);
+  TString string2("two");
+  TElement<int> element2(2, string2);
+  TString string3("three");
+  TElement<int> element3(3, string3);
+  TSortTable<int> table(3);
+  table.Add(element);
+  table.Add(element2);
+  table.Add(element3);
+  table.Delete(element3);
+  table.Delete(string2);
+  EXPECT_EQ(table.GetCount(), 1);
+}
+
+TEST(TSortTable, can_not_delete_element_from_empty_table)
+{
+  TSortTable<int> table(3);
+  TString string("one");
+  TElement<int> element(1, string);
+  EXPECT_FALSE(table.Delete(element));
+  EXPECT_FALSE(table.Delete(string));
+}
+
+TEST(TSortTable, can_delete_element_from_not_empty_table)
+{
+  TSortTable<int> table(3);
+  TString string("one");
+  TElement<int> element(1, string);
+  table.Add(element);
+  TString string2("two");
+  TElement<int> element2(2, string2);
+  table.Add(element2);
+  EXPECT_TRUE(table.Delete(element));
+  EXPECT_TRUE(table.Delete(string2));
+}
+
+TEST(TSortTable, can_use_operator_for_index)
+{
+  TString string("new");
+  TElement<int> element(1, string);
+  TSortTable<int> table(10);
+  table.Add(element);
+  EXPECT_EQ(table[string], 1);
+}
+
+TEST(TSortTable, can_search_element)
+{
+  TString string("one");
+  TElement<int> element(1, string);
+  TString string2("two");
+  TElement<int> element2(2, string2);
+  TString string3("three");
+  TElement<int> element3(3, string3);
+  TSortTable<int> table(1);
+  table.Add(element);
+  table.Add(element2);
+  table.Add(element3);
+  EXPECT_TRUE(table.LineSearch(string2) == element2);
+}
+
+TEST(TSortTable, can_sort_table_by_insert_sort)
+{
+  TTableSee<int> table(3);
+  TString string("one");
+  TElement<int> element(1, string);
+  TString string2("two");
+  TElement<int> element2(2, string2);
+  TString string3("three");
+  TElement<int> element3(3, string3);
+  table.Add(element3);
+  table.Add(element);
+  table.Add(element2);
+  TSortTable<int>::InsertSort(table);
+  EXPECT_TRUE(table.GetNode()[0].GetKey() == "one");
+}
+
+TEST(TSortTable, can_sort_seetable_by_selection_sort)
+{
+  TTableSee<int> table(3);
+  TString string("one");
+  TElement<int> element(1, string);
+  TString string2("two");
+  TElement<int> element2(2, string2);
+  TString string3("three");
+  TElement<int> element3(3, string3);
+  table.Add(element3);
+  table.Add(element);
+  table.Add(element2);
+  TSortTable<int>::SelectionSort(table);
+  EXPECT_TRUE(table.GetNode()[0].GetKey() == "one");
+}
+
+TEST(TSortTable, can_sort_seetable_by_quick_sort)
+{
+  TTableSee<int> table(3);
+  TString string("one");
+  TElement<int> element(1, string);
+  TString string2("two");
+  TElement<int> element2(2, string2);
+  TString string3("three");
+  TElement<int> element3(3, string3);
+  table.Add(element3);
+  table.Add(element);
+  table.Add(element2);
+  TSortTable<int>::QuickSort(table, 0, table.GetCount() - 1);
+  EXPECT_TRUE(table.GetNode()[0].GetKey() == "one");
+}
