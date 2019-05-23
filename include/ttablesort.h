@@ -36,8 +36,8 @@ public:
   static void QuickSort(TTableSee<SortTableType>& A, const int low, const int high);
 
   SortTableType& operator[](const TString& A) const;
-  template <typename Opp>
-  friend ostream& operator<<(ostream& ostr, const TSortTable<typename Opp>& A);
+  template <typename Oper>
+  friend ostream& operator<<(ostream& ostr, const TSortTable<typename Oper>& A);
 };
 //----------------------------------------------------------------------
 template <typename SortTableType>
@@ -306,8 +306,8 @@ SortTableType& TSortTable<SortTableType>::operator[](const TString& A) const
   return LineSearch(A).GetData();
 }
 //----------------------------------------------------------------------
-template <typename Opp>
-ostream& operator<<(ostream& ostr, const TSortTable<typename Opp>& A)
+template <typename Oper>
+ostream& operator<<(ostream& ostr, const TSortTable<typename Oper>& A)
 {
   for ( int i = 0; i < A.GetCount(); i++ )
     ostr << A.node[i] << endl;
