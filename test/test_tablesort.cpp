@@ -436,6 +436,7 @@ TEST(TSortTable, can_search_element)
   table.Add(element2);
   table.Add(element3);
   EXPECT_TRUE(table.LineSearch(string2) == element2);
+  EXPECT_TRUE(table.BinarySearch(string2) == element2);
 }
 
 TEST(TSortTable, can_sort_table_by_insert_sort)

@@ -29,7 +29,9 @@ public:
   TString& Add(const SortTableType& A);
   bool Delete(TElement<SortTableType>& A);
   bool Delete(const TString& A);
+
   TElement<SortTableType>& LineSearch(const TString& A) const;
+  TElement<SortTableType>& BinarySearch(const TString& A) const;
 
   static void InsertSort(TTableSee<SortTableType>& A);
   static void SelectionSort(TTableSee<SortTableType>& A);
@@ -238,6 +240,33 @@ TElement<SortTableType>& TSortTable<SortTableType>::LineSearch(const TString& A)
   {
     if ( node[current].GetKey() == A )
       return node[current];
+  }
+  return stt;
+}
+//----------------------------------------------------------------------
+template <typename SortTableType>
+TElement<SortTableType>& TSortTable<SortTableType>::BinarySearch(const TString& A) const
+{
+  int left = 0;
+  int right = count;
+  int cur = count / 2;
+  int tmp = count / 2;
+  while (right - left >= 1)
+  {
+    if (node[cur].GetKey() < A)
+    {
+      left = cur;
+      cur = (right + left) / 2;
+    }
+    else if (node[cur].GetKey() > A)
+    {
+      right = cur;
+      cur = (right - left) / 2;
+    }
+    else if (node[cur].GetKey() == A)
+      return node[cur];
+    if (right - left == 1)
+      break;
   }
   return stt;
 }
