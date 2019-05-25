@@ -13,7 +13,7 @@ int main()
   TElemTree<int> element;
   char memory[100];
   cout << "EXAMPLE: TABLE BY TREE"<< endl;
-  cout << "Max count of elements: ";
+  cout << "Count of elements: ";
   cin >> max;
   for (int i = 0; i < max; i++)
   {

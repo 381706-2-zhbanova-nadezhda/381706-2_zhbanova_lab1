@@ -106,7 +106,7 @@ TElemTree<TableTreeType>* TTableTree<TableTreeType>::Add(TElemTree<TableTreeType
       else if (A.GetKey() < b->GetKey())
         b = b->GetLeft();
       else
-        throw 1;
+        throw TException("Error");
     }
     count++;
     if (A.GetKey() > a->GetKey())
