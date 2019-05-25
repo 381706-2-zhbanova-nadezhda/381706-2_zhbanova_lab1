@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <cstring>
-#include "exception.h"
 
 class TString
 {
@@ -124,6 +123,6 @@ bool TString::operator>(const TString& A) const
 char& TString::operator[](const int a) const
 {
   if (a < 0 || a > count - 1)
-    throw TException("Error");
+    throw 1;
   return memory[a];
 }

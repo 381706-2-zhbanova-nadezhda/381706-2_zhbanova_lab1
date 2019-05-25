@@ -218,3 +218,78 @@ TEST(TElemTree, can_compare_elements)
 }
 
 //TESTS FOR CLASS TTableTree
+
+TEST(TTableTree, can_initial_table)
+{
+  ASSERT_NO_THROW(TTableTree<int> table);
+}
+
+TEST(TTableTree, can_create_copy_of_table)
+{
+  TTableTree<int> table;
+  TString string("old");
+  TString string2("new");
+  TElemTree<int> element(1, string);
+  TElemTree<int> element2(2, string2);
+  table.Add(element);
+  table.Add(element2);
+  TTableTree<int> table2(table);
+  EXPECT_EQ(table2.GetCount(), 2);
+}
+
+TEST(TTableTree, can_get_count)
+{
+  TTableTree<int> table;
+  TString string("old");
+  TElemTree<int> element(1, string);
+  table.Add(element);
+  TTableTree<int> table2(table);
+  EXPECT_EQ(table2.GetCount(), 1);
+}
+
+TEST(TTableTree, can_get_node)
+{
+  TTableTree<int> table;
+  EXPECT_TRUE(table.GetNode() == NULL);
+}
+
+TEST(TTableTree, can_add_element)
+{
+  TString string("new");
+  TElemTree<int> element(1, string);
+  TTableTree<int> table;
+  table.Add(element);
+  EXPECT_EQ(table[string], 1);
+}
+
+TEST(TTableTree, can_delete_element)
+{
+  TString string("new");
+  TElemTree<int> element(1, string);
+  TString string2("two");
+  TElemTree<int> element2(2, string2);
+  TTableTree<int> table;
+  table.Add(element);
+  EXPECT_TRUE(table.Delete(string));
+}
+
+TEST(TTableTree, can_search_element)
+{
+  TString string("one");
+  TElemTree<int> element(1, string);
+  TString string2("two");
+  TElemTree<int> element2(1, string2);
+  TTableTree<int> table;
+  table.Add(element);
+  table.Add(element2);
+  EXPECT_TRUE(table.Search(string) == element);
+}
+
+TEST(TTableTree, can_use_operator_for_index)
+{
+  TString string("new");
+  TElemTree<int> element(1, string);
+  TTableTree<int> table;
+  table.Add(element);
+  EXPECT_EQ(table[string], 1);
+}
