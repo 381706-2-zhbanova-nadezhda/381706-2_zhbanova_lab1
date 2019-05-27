@@ -177,6 +177,74 @@ TEST(TLine, compare_non_equal_lines)
   EXPECT_FALSE(line == line2);
 }
 
+//TESTS FOR CLASS TCircle
+
+TEST(TCircle, can_create_circle_by_three_ways)
+{
+  ASSERT_NO_THROW(TCircle circle1);
+  TPoint point(1, 1);
+  ASSERT_NO_THROW(TCircle circle2(&point, 1));
+  ASSERT_NO_THROW(TCircle circle3(1, 1, 1));
+}
+
+TEST(TCircle, can_not_create_circle_with_negative_radius)
+{
+  TPoint point(1, 1);
+  ASSERT_ANY_THROW(TCircle circle1(&point, -1));
+  ASSERT_ANY_THROW(TCircle circle2(1, 1, -1));
+}
+
+TEST(TCircle, can_create_copy_of_circle)
+{
+  TCircle circle(1, 1, 1);
+  ASSERT_NO_THROW(TCircle circle1(circle));
+}
+
+TEST(TCircle, can_get_X)
+{
+  TCircle circle(1, 1, 1);
+  EXPECT_EQ(circle.GetX(), 1);
+}
+
+TEST(TCircle, can_get_Y)
+{
+  TCircle circle(1, 1, 1);
+  EXPECT_EQ(circle.GetY(), 1);
+}
+
+TEST(TCircle, can_get_radius)
+{
+  TCircle circle(1, 1, 1);
+  EXPECT_EQ(circle.GetRadius(), 1);
+}
+
+TEST(TCircle, can_set_X)
+{
+  TCircle circle(1, 1, 1);
+  circle.SetX(2);
+  EXPECT_EQ(circle.GetX(), 2);
+}
+
+TEST(TCircle, can_set_Y)
+{
+  TCircle circle(1, 1, 1);
+  circle.SetY(2);
+  EXPECT_EQ(circle.GetY(), 2);
+}
+
+TEST(TCircle, can_set_R_radius)
+{
+  TCircle circle(1, 1, 1);
+  circle.SetRadius(2);
+  EXPECT_EQ(circle.GetRadius(), 2);
+}
+
+TEST(TCircle, can_not_set_negative_radius)
+{
+  TCircle circle(1, 1, 1);
+  ASSERT_ANY_THROW(circle.SetRadius(-1));
+}
+
 //TESTS FOR CLASS TPlex
 
 TEST(TPlex, can_create_plex)

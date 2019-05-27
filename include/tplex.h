@@ -2,10 +2,9 @@
 
 #include <iostream>
 #include <stack>
-
-#include "exception.h"
 #include "tpoint.h"
 #include "tline.h"
+#include "tcircle.h"
 
 class TPlex: public TPoint
 {
