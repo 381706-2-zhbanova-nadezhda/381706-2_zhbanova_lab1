@@ -7,7 +7,7 @@ template <typename HashTableType>
 class THashTable
 {
 protected:
-  static TElement<HashTableType> tht;
+  static TElement<HashTableType> st;
   TElement<HashTableType>* node;
   int count;
   int size;
@@ -32,14 +32,14 @@ public:
   friend ostream& operator<<(ostream& ostr, const THashTable<Type>& A)
   {
   for (int i = 0; i < A.size; i++)
-    if (A.node[i] != tht)
+    if (A.node[i] != st)
       ostr << A.node[i] << endl;
   return ostr;
   }
 };
 //----------------------------------------------------------------------
 template <typename HashTableType>
-TElement<HashTableType> THashTable<HashTableType>::tht;
+TElement<HashTableType> THashTable<HashTableType>::st;
 //----------------------------------------------------------------------
 template <typename HashTableType>
 int THashTable<HashTableType>::Function(TString& A)
@@ -54,7 +54,7 @@ template <typename HashTableType>
 void THashTable<HashTableType>::Expansion(int _size)
 {
   if(_size <= size)
-    throw TException("Error");
+    throw 1;
   else if(_size > size)
   {
     while (IsSimple(_size) == 0)
@@ -63,7 +63,7 @@ void THashTable<HashTableType>::Expansion(int _size)
     for (int i = 0; i < size; i++)
       tmp[i] = node[i];
     for (int i = size; i < _size; i++)
-      tmp[i] = tht;
+      tmp[i] = st;
     size = _size;
     delete[] node;
     node = tmp;
@@ -74,12 +74,15 @@ template <typename HashTableType>
 THashTable<HashTableType>::THashTable(const int _size)
 {
   if (_size <= 0)
-    throw TException("Error");
+    throw 1;
   count = 0;
   size = _size;
+  m = 2;
+  if (size == 1)
+    m = 1;
   node = new TElement<HashTableType>[size];
   for (int i = 0; i < size; i++)
-    node[i] = tht;
+    node[i] = st;
 }
 //----------------------------------------------------------------------
 template <typename HashTableType>
@@ -87,6 +90,7 @@ THashTable<HashTableType>::THashTable(const THashTable<HashTableType>& A)
 {
   count = A.count;
   size = A.size;
+  m = A.m;
   node = new TElement<HashTableType>[size];
   for (int i = 0; i < size; i++)
     node[i] = A.node[i];
@@ -103,13 +107,12 @@ THashTable<HashTableType>::~THashTable()
 template <typename HashTableType>
 void THashTable<HashTableType>::Add(TString& A, const HashTableType& H)
 {
-  m = 2;
   if (count == size)
-    Expansion(count * 2);
+    Expansion(count*2);
   int i = Function(A);
   if (i > size)
     Expansion(i + 10);
-  while (node[i] != tht)
+  while (node[i] != st)
     i = (i + m) % size;
   node[i].SetKey(A);
   node[i].SetData(H);
@@ -120,11 +123,11 @@ template <typename HashTableType>
 void THashTable<HashTableType>::Add(TElement<HashTableType>& A)
 {
   if (count == size)
-    Expansion(count * 2);
+    Expansion(count*2);
   int i = Function(A.GetKey());
   if (i > size)
     Expansion(i + 10);
-  while (node[i] != tht)
+  while (node[i] != st)
     i = (i + m) % size;
   node[i] = A;
   count++;
@@ -133,29 +136,42 @@ void THashTable<HashTableType>::Add(TElement<HashTableType>& A)
 template <typename HashTableType>
 bool THashTable<HashTableType>::Delete(TString& A)
 {
-  m = 2;
-  int i = Function(A);
-  while (node[i].GetKey() != A)
+  for(int j = 0; j < size; j++)
   {
-    if (node[i] == tht)
-      return false;
-    i = (i + m) % size;
+    if(node[j].GetKey() == A)
+    {
+      node[j] = st;
+      break;
+    }
   }
-  node[i] = tht;
+  count--;
+  //int i = Function(A);
+  //while (node[i].GetKey() != A)
+  //{
+  //  if (node[i] == st)
+  //    return false;
+  //  i = (i + m) % size;
+  //}
+  //node[i] = st;
   return true;
 }
 //----------------------------------------------------------------------
 template <typename HashTableType>
 HashTableType& THashTable<HashTableType>::Search(TString& A)
 {
-  m = 2;
-  int i = Function(A);
-  while (node[i].GetKey() != A)
+  int i;
+  for(i = 0; i < size; i++)
   {
-    i = (i + m) % size;
-    if (node[i] == tht)
+    if(node[i].GetKey() == A)
       break;
   }
+  //int i = Function(A);
+  //while (node[i].GetKey() != A)
+  //{
+  //  i = (i + m) % size;
+  //  if (node[i] == st)
+  //    break;
+  //}
   return node[i].GetData();
 }
 //----------------------------------------------------------------------

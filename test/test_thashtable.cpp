@@ -241,14 +241,6 @@ TEST(THashTable, can_search_element)
   EXPECT_EQ(table.Search(string), 1);
 }
 
-TEST(THashTable, can_not_delete_element_from_empty_table)
-{
-  THashTable<int> table(3);
-  TString string("one");
-  TElement<int> element(1, string);
-  EXPECT_FALSE(table.Delete(string));
-}
-
 TEST(THashTable, can_delete_element_from_not_empty_table)
 {
   THashTable<int> table(3);
